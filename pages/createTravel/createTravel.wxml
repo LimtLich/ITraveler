@@ -1,5 +1,29 @@
 
 <!--index.wxml-->
-<view>
-    Create
+<view class="container">
+  <view class="upload_img">
+    <image src="/static/images/upload.jpg"></image>
+    <button bindtap="uploadImage"> 上传封面图片   <span class="iconfont icon-UPphotos_line"></span>  </button>
+  </view>
+  <view class="submit">
+    <button bindtap="submitForm" type="default"> 提交   <span class="iconfont icon-tijiao"></span>  </button>
+  </view>
+  <view class="form">
+    <view>
+      <span>标题：</span> 
+      <input value="{{title}}" placeholder="请输入标题" />
+    </view>
+    <view>
+      <span>地点：</span> 
+      <input value="{{place}}" placeholder="请输入地点" />
+    </view>
+    <view>
+      <span>时间：</span> 
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+        <view class="picker">
+          {{date}}
+        </view>
+      </picker>
+    </view>
+  </view>
 </view>
