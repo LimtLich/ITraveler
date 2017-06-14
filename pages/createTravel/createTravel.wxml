@@ -2,11 +2,11 @@
 <!--index.wxml-->
 <view class="container">
   <view class="upload_img">
-    <image src="/static/images/upload.jpg"></image>
-    <button bindtap="uploadImage"> 上传封面图片   <span class="iconfont icon-UPphotos_line"></span>  </button>
+    <image src="/static/images/default.jpg"></image>
+    <button class="upload_btn" bindtap="uploadImage"> 上传封面图片   <span style="color:#fff" class="iconfont icon-UPphotos_line"></span>  </button>
   </view>
   <view class="submit">
-    <button bindtap="submitForm" type="default"> 提交   <span class="iconfont icon-tijiao"></span>  </button>
+    <button bindtap="submitForm" type="default">创建</button>
   </view>
   <view class="form">
     <view>
