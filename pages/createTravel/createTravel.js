@@ -4,6 +4,7 @@ Page({
         title: '',
         place: '',
         date: '',
+        cover_img: '/static/images/default.jpg',
     },
     bindDateChange: function (e) {
         var that = this
@@ -12,11 +13,16 @@ Page({
         })
     },
     uploadImage: function () {
+        var that = this
         wx.chooseImage({
             success: function (res) {
                 var tempFilePaths = res.tempFilePaths
+                that.setData({
+                    cover_img: tempFilePaths,
+                })
+                console.log(tempFilePaths)
                 wx.uploadFile({
-                    url: 'http://example.weixin.qq.com/upload', //仅为示例，非真实的接口地址
+                    url: 'https://www.mingomin.com/service/public/upload/file', //仅为示例，非真实的接口地址
                     filePath: tempFilePaths[0],
                     name: 'file',
                     formData: {
@@ -31,7 +37,18 @@ Page({
         })
     },
     submitForm: function () {
-
+        // wx.uploadFile({
+        //     url: 'http://example.weixin.qq.com/upload', //仅为示例，非真实的接口地址
+        //     filePath: tempFilePaths[0],
+        //     name: 'file',
+        //     formData: {
+        //         'user': 'test'
+        //     },
+        //     success: function (res) {
+        //         var data = res.data
+        //         //do something
+        //     }
+        // })
     },
     onLoad: function (options) {
         // 页面初始化 options为页面跳转所带来的参数
