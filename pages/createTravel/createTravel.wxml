@@ -11,11 +11,11 @@
   <view class="form">
     <view>
       <span>标题：</span> 
-      <input value="{{title}}" placeholder="请输入标题" />
+      <input value="{{title}}" bindinput="bindTitle" placeholder="请输入标题" />
     </view>
     <view>
       <span>地点：</span> 
-      <input value="{{place}}" placeholder="请输入地点" />
+      <input value="{{place}}" bindinput="bindPlace" placeholder="请输入地点" />
     </view>
     <view>
       <span>时间：</span> 

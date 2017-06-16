@@ -5,11 +5,24 @@ Page({
     place: '',
     date: '',
     cover_img: '/static/images/default.jpg',
+    validMsg: '',
   },
   bindDateChange: function (e) {
     var that = this
     that.setData({
       date: e.detail.value
+    })
+  },
+  bindTitle: function (e) {
+    var that = this
+    that.setData({
+      title: e.detail.value
+    })
+  },
+  bindPlace: function (e) {
+    var that = this
+    that.setData({
+      place: e.detail.value
     })
   },
   uploadImage: function () {
@@ -24,26 +37,72 @@ Page({
       }
     })
   },
-  submitForm: function () {
-    console.log('in upload btn')
+  valid: function () {
     var that = this
-    wx.uploadFile({
-      url: 'https://www.mingomin.com/service/public/upload/file', //仅为示例，非真实的接口地址
-      filePath: that.data.cover_img[0],
-      name: 'file',
-      formData: {
-        'user': 'test'
-      },
-      success: function (res) {
-        var data = res.data
-        console.log('finish upload')
-        //do something
-      },
-      fail: function (res) {
-        console.log('fail:', res)
-        //do something
-      }
-    })
+    var data = that.data
+    if (data.title == '') {
+      data.validMsg = '未设定游记标题'
+      return false
+    } else if (data.place == '') {
+      data.validMsg = '未设定游记地点'
+      return false
+    } else if (data.cover_img === '/static/images/default.jpg') {
+      data.validMsg = '未设定游记封面'
+      return false
+    } else {
+      return true
+    }
+  },
+  submitForm: function () {
+    var that = this
+    if (that.valid()) {
+      wx.showLoading({
+        title: '提交中',
+        mask: true
+      })
+      wx.uploadFile({
+        url: 'https://www.mingomin.com/service/public/upload/file', //服务地址
+        filePath: that.data.cover_img[0],
+        name: 'file',
+        success: function (res) {
+          var data = that.data
+          wx.request({
+            url: 'https://www.mingomin.com/service/public/server/createTravel', //仅为示例，并非真实的接口地址
+            data: {
+              title: data.title,
+              place: data.place,
+              date: data.date
+            },
+            header: {
+              'content-type': 'application/json'
+            },
+            success: function (res) {
+              console.log(res)
+              console.log(res.data)
+              wx.hideLoading()
+              wx.navigateTo({
+                url: '../index/index'
+              })
+            }
+          })
+        },
+        fail: function (res) {
+          wx.hideLoading()
+          console.log('fail:', res)
+        }
+      })
+    } else {
+      wx.showModal({
+        title: '提示',
+        showCancel: false,
+        content: this.data.validMsg,
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          }
+        }
+      })
+    }
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
