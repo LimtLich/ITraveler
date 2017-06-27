@@ -65,7 +65,7 @@ Page({
         filePath: that.data.cover_img[0],
         name: 'file',
         success: function (res) {
-          console.log('img upload:', res.data)
+          var resData = JSON.parse(res.data)
           var data = that.data
           wx.request({
             url: 'https://www.mingomin.com/service/public/server/createTravel', //服务地址
@@ -73,7 +73,7 @@ Page({
               title: data.title,
               place: data.place,
               date: data.date,
-              cover_img: res.data.id
+              cover_img: resData.id
             },
             header: {
               'content-type': 'application/json'
@@ -82,9 +82,13 @@ Page({
               console.log(res)
               console.log(res.data)
               wx.hideLoading()
-              wx.navigateTo({
+              wx.redirectTo({
                 url: '../editTravel/editTravel'
               })
+            },
+            fail: function (res) {
+              wx.hideLoading()
+              console.log('fail:', res)
             }
           })
         },

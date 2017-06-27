@@ -26,5 +26,10 @@ Page({
     } else {
       console.log('data not exit')
     }
+  },
+  onUnload: function () {
+    wx.navigateBack({
+      delta: 99
+    })
   }
 })
