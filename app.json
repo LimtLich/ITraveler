@@ -1,14 +1,15 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/logs/logs",
     "pages/createTravel/createTravel",
-    "pages/travelManagement/travelManagement"
+    "pages/travelManagement/travelManagement",
+    "pages/editTravel/editTravel"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#dfdfdf",
     "navigationBarTitleText": "ITraveler",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   }
 }

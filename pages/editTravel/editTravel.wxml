@@ -1,0 +1,6 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="travelTitle">
+    {{title}}
+  </view>
+</view>
