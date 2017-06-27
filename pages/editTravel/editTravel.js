@@ -4,6 +4,7 @@ var app = getApp()
 Page({
   data: {
     title: 'title',
+    travelInfo: {},
   },
   onLoad: function (option) {
     console.log('onload option:', option)
@@ -19,8 +20,20 @@ Page({
           'content-type': 'application/json'
         },
         success: function (res) {
-          console.log(res)
-          console.log(res.data)
+          data.travelInfo = res.data
+          console.log(data.travelInfo)
+        },
+        fail: function (res) {
+          wx.showModal({
+            title: '错误',
+            showCancel: false,
+            content: res,
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+              }
+            }
+          })
         }
       })
     } else {

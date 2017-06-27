@@ -79,22 +79,39 @@ Page({
               'content-type': 'application/json'
             },
             success: function (res) {
-              console.log(res)
               console.log(res.data)
               wx.hideLoading()
               wx.redirectTo({
-                url: '../editTravel/editTravel'
+                url: '../editTravel/editTravel?guid=' + res.data + ''
               })
             },
             fail: function (res) {
               wx.hideLoading()
-              console.log('fail:', res)
+              wx.showModal({
+                title: '错误',
+                showCancel: false,
+                content: res,
+                success: function (res) {
+                  if (res.confirm) {
+                    console.log('用户点击确定')
+                  }
+                }
+              })
             }
           })
         },
         fail: function (res) {
           wx.hideLoading()
-          console.log('fail:', res)
+          wx.showModal({
+            title: '错误',
+            showCancel: false,
+            content: res,
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+              }
+            }
+          })
         }
       })
     } else {
