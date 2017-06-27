@@ -6,7 +6,7 @@
     <button class="upload_btn" bindtap="uploadImage"> 上传封面图片   <span style="color:#fff" class="iconfont icon-UPphotos_line"></span>  </button>
   </view>
   <view class="submit">
-    <button bindtap="submitForm" type="default">下一步</button>
+    <button bindtap="submitForm" type="default">提  交</button>
   </view>
   <view class="form">
     <view>

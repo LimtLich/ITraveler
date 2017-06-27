@@ -91,11 +91,7 @@ Page({
                 title: '错误',
                 showCancel: false,
                 content: res,
-                success: function (res) {
-                  if (res.confirm) {
-                    console.log('用户点击确定')
-                  }
-                }
+                success: function (res) { }
               })
             }
           })
@@ -119,11 +115,7 @@ Page({
         title: '提示',
         showCancel: false,
         content: this.data.validMsg,
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-          }
-        }
+        success: function (res) { }
       })
     }
   },

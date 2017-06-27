@@ -1,6 +1,10 @@
+
 <!--index.wxml-->
 <view class="container">
   <view class="travelTitle">
-    {{title}}
+    <p>{{travelInfo.title}}</p>
+    <p>{{travelInfo.place}}</p>
+    <p>{{travelInfo.date}}</p>
+    <image src="{{travelInfo.cover_img}}"></image>
   </view>
 </view>

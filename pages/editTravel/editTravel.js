@@ -3,7 +3,6 @@
 var app = getApp()
 Page({
   data: {
-    title: 'title',
     travelInfo: {},
   },
   onLoad: function (option) {
@@ -20,7 +19,15 @@ Page({
           'content-type': 'application/json'
         },
         success: function (res) {
-          data.travelInfo = res.data
+          var result = res.data
+          that.setData({
+            travelInfo: {
+              title: result.title,
+              place: result.place,
+              cover_img: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + result.cover_img,
+              date: result.date
+            }
+          })
           console.log(data.travelInfo)
         },
         fail: function (res) {
@@ -28,11 +35,7 @@ Page({
             title: '错误',
             showCancel: false,
             content: res,
-            success: function (res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              }
-            }
+            success: function (res) { }
           })
         }
       })
