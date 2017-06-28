@@ -11,7 +11,7 @@
     <image src="/static/images/default.jpg"></image>
   </view>
   <view class="paragraphBtn">
-    <button bindtap="addParagraph">添加段落</button>
+    <button bindtap="addParagraph"><span class="iconfont icon-chuangjian1"></span>添加内容</button>
   </view>
   <view class="submitBtn">
     <button bindtap="submitForm">保 存</button>

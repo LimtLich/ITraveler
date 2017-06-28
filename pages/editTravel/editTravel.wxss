@@ -37,8 +37,18 @@
 
 .paragraphBtn{
   position:fixed;
-  width:65%;
+  width:35%;
   top:260px;
+}
+
+.paragraphBtn button{
+  line-height: 40px;
+  height:40px;
+}
+
+.paragraphBtn span{
+  font-size:24px;
+  color:#dfdfdf;
 }
 
 .submitBtn{
@@ -46,4 +56,3 @@
   width:100%;
   bottom:0;
 }
-
