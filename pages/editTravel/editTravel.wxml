@@ -1,10 +1,16 @@
-
 <!--index.wxml-->
 <view class="container">
-  <view class="travelTitle">
-    <p>{{travelInfo.title}}</p>
-    <p>{{travelInfo.place}}</p>
-    <p>{{travelInfo.date}}</p>
-    <image src="{{travelInfo.cover_img}}"></image>
+  <view class="travelHead">
+    <input class="Head_title" value="测试标题" bindinput="bindTitle" placeholder="请设置标题" />
+    <input class="Head_place" value="测试地点" bindinput="bindPlace" placeholder="请设置地点" />
+    <picker class="Head_date" mode="date" value="2015-09-01" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+      <view class="picker">
+        2015-09-01
+      </view>
+    </picker>
+    <image src="/static/images/default.jpg"></image>
+  </view>
+  <view class="submitBtn">
+    <button bindtap="submitForm">保 存</button>
   </view>
 </view>

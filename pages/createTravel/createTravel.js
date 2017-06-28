@@ -28,6 +28,7 @@ Page({
   uploadImage: function () {
     var that = this
     wx.chooseImage({
+      count: 1,
       success: function (res) {
         var tempFilePaths = res.tempFilePaths
         that.setData({

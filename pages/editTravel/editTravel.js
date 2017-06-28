@@ -5,6 +5,28 @@ Page({
   data: {
     travelInfo: {},
   },
+  bindDateChange: function (e) {
+    var that = this
+    that.setData({
+      'travelInfo.date': e.detail.value
+    })
+  },
+  bindTitle: function (e) {
+    var that = this
+    that.setData({
+      'travelInfo.title': e.detail.value
+    })
+  },
+  bindPlace: function (e) {
+    var that = this
+    that.setData({
+      'travelInfo.place': e.detail.value
+    })
+  },
+  submitForm: function () {
+    var that = this
+    console.log(that.data.travelInfo)
+  },
   onLoad: function (option) {
     console.log('onload option:', option)
     var that = this
@@ -44,8 +66,8 @@ Page({
     }
   },
   onUnload: function () {
-    wx.navigateBack({
-      delta: 99
+    wx.redirectTo({
+      url: '../travelManagement/travelManagement'
     })
   }
 })
