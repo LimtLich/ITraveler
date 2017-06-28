@@ -10,6 +10,9 @@
     </picker>
     <image src="/static/images/default.jpg"></image>
   </view>
+  <view class="paragraphBtn">
+    <button bindtap="addParagraph">添加段落</button>
+  </view>
   <view class="submitBtn">
     <button bindtap="submitForm">保 存</button>
   </view>

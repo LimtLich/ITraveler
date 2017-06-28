@@ -35,6 +35,12 @@
   height: 100%;
 }
 
+.paragraphBtn{
+  position:fixed;
+  width:65%;
+  top:260px;
+}
+
 .submitBtn{
   position: absolute;
   width:100%;
