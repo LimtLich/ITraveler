@@ -4,6 +4,8 @@ var app = getApp()
 Page({
   data: {
     travelInfo: {},
+    showMask: false,
+    showTextBox: false,
   },
   bindDateChange: function (e) {
     var that = this
@@ -26,6 +28,30 @@ Page({
   submitForm: function () {
     var that = this
     console.log(that.data.travelInfo)
+  },
+  addContent: function () {
+    var that = this
+    that.setData({
+      showMask: true,
+      showTextBox: true
+    })
+  },
+  addPicture: function () {
+
+  },
+  confirmText: function () {
+    var that = this
+    that.setData({
+      showMask: false,
+      showTextBox: false
+    })
+  },
+  cancleText: function () {
+    var that = this
+    that.setData({
+      showMask: false,
+      showTextBox: false
+    })
   },
   onLoad: function (option) {
     console.log('onload option:', option)

@@ -1,5 +1,15 @@
 <!--index.wxml-->
+<view class="shadow" wx:if="{{showMask}}"></view>
 <view class="container">
+  <view class="content_text" wx:if="{{showTextBox}}">
+    <p>游记文本</p>
+    <textarea bindblur="bindTextAreaBlur" auto-focus placeholder="输入文本......"/>
+    <button bindtap="confirmText" type="primary">确认</button>
+    <button bindtap="cancleText" type="default">取消</button>
+  </view>
+  <view class="content_pic">
+    <input type="text" />
+  </view>
   <view class="travelHead">
     <input class="Head_title" value="测试标题" bindinput="bindTitle" placeholder="请设置标题" />
     <input class="Head_place" value="测试地点" bindinput="bindPlace" placeholder="请设置地点" />
@@ -10,10 +20,11 @@
     </picker>
     <image src="/static/images/default.jpg"></image>
   </view>
-  <view class="paragraphBtn">
-    <button bindtap="addParagraph"><span class="iconfont icon-chuangjian1"></span>添加内容</button>
+  <view class="paragraph">
+    <div bindtap="addContent" class="addContent"><span class="iconfont icon-chuangjian1"></span>插入文本</div>
+    <div bindtap="addPicture" class="addContent"><span class="iconfont icon-chuangjian1"></span>插入图片</div>
   </view>
   <view class="submitBtn">
-    <button bindtap="submitForm">保 存</button>
+    <div bindtap="submitForm">保 存</div>
   </view>
 </view>
