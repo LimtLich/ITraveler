@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="shadow" wx:if="{{showMask}}"></view>
 <view class="container">
-  <view class="content_text" wx:if="{{showTextBox}}">
+  <view animation="{{animationData}}" class="content_text" wx:if="{{showTextBox}}">
     <p>游记文本</p>
     <textarea bindblur="bindTextAreaBlur" auto-focus placeholder="输入文本......"/>
     <button bindtap="confirmText" type="primary">确认</button>

@@ -66,6 +66,7 @@
   height: 230px;
   background: #fff;
   border-radius: 10px;
+  opacity: 0;
 }
 
 .content_text button {

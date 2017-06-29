@@ -3,6 +3,7 @@
 var app = getApp()
 Page({
   data: {
+    animationData: {},
     travelInfo: {},
     showMask: false,
     showTextBox: false,
@@ -35,6 +36,23 @@ Page({
       showMask: true,
       showTextBox: true
     })
+    var animation = wx.createAnimation({
+      duration: 300,
+      timingFunction: 'ease',
+    })
+
+    this.animation = animation
+
+    this.setData({
+      animationData: animation.export()
+    })
+
+    setTimeout(function () {
+      animation.opacity(1).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 100)
   },
   addPicture: function () {
 
@@ -45,12 +63,36 @@ Page({
       showMask: false,
       showTextBox: false
     })
+    var animation = wx.createAnimation({
+      duration: 300,
+      timingFunction: 'ease',
+    })
+
+    this.animation = animation
+
+    animation.opacity(0).step()
+
+    this.setData({
+      animationData: animation.export()
+    })
   },
   cancleText: function () {
     var that = this
     that.setData({
       showMask: false,
       showTextBox: false
+    })
+    var animation = wx.createAnimation({
+      duration: 300,
+      timingFunction: 'ease',
+    })
+
+    this.animation = animation
+
+    animation.opacity(0).step()
+
+    this.setData({
+      animationData: animation.export()
     })
   },
   onLoad: function (option) {
@@ -95,5 +137,31 @@ Page({
     wx.redirectTo({
       url: '../travelManagement/travelManagement'
     })
-  }
+  },
+  onShow: function () {
+
+  },
+  // rotateAndScale: function () {
+  //   // 旋转同时放大
+  //   this.animation.rotate(45).scale(2, 2).step()
+  //   this.setData({
+  //     animationData: this.animation.export()
+  //   })
+  // },
+  // rotateThenScale: function () {
+  //   // 先旋转后放大
+  //   this.animation.rotate(45).step()
+  //   this.animation.scale(2, 2).step()
+  //   this.setData({
+  //     animationData: this.animation.export()
+  //   })
+  // },
+  // rotateAndScaleThenTranslate: function () {
+  //   // 先旋转同时放大，然后平移
+  //   this.animation.rotate(45).scale(2, 2).step()
+  //   this.animation.translate(100, 100).step({ duration: 1000 })
+  //   this.setData({
+  //     animationData: this.animation.export()
+  //   })
+  // }
 })
