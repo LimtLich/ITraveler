@@ -5,6 +5,8 @@ Page({
   data: {
     animationData: {},
     travelInfo: {},
+    paragraphContent: [],
+    textContent: '',
     showMask: false,
     showTextBox: false,
   },
@@ -26,9 +28,21 @@ Page({
       'travelInfo.place': e.detail.value
     })
   },
+  bindTextAreaBlur: function (e) {
+    var that = this
+    that.setData({
+      textContent: e.detail.value,
+    })
+    that.data.paragraphContent.push({ key: 'text', value: that.data.textContent })
+    that.setData({
+      paragraphContent: that.data.paragraphContent
+    })
+    console.log(e.detail.value)
+    console.log(that.data.paragraphContent)
+  },
   submitForm: function () {
     var that = this
-    console.log(that.data.travelInfo)
+    console.log(that.data.paragraphContent)
   },
   addContent: function () {
     var that = this
@@ -55,7 +69,18 @@ Page({
     }.bind(this), 100)
   },
   addPicture: function () {
-
+    var that = this
+    wx.chooseImage({
+      count: 1,
+      success: function (res) {
+        var tempFilePaths = res.tempFilePaths
+        that.data.paragraphContent.push({ key: 'image', value: tempFilePaths })
+        that.setData({
+          paragraphContent: that.data.paragraphContent
+        })
+        console.log(tempFilePaths)
+      }
+    })
   },
   confirmText: function () {
     var that = this

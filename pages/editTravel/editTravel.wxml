@@ -3,12 +3,9 @@
 <view class="container">
   <view animation="{{animationData}}" class="content_text" wx:if="{{showTextBox}}">
     <p>游记文本</p>
-    <textarea bindblur="bindTextAreaBlur" auto-focus placeholder="输入文本......"/>
+    <textarea bindblur="bindTextAreaBlur" auto-focus placeholder="输入文本......" />
     <button bindtap="confirmText" type="primary">确认</button>
     <button bindtap="cancleText" type="default">取消</button>
-  </view>
-  <view class="content_pic">
-    <input type="text" />
   </view>
   <view class="travelHead">
     <input class="Head_title" value="测试标题" bindinput="bindTitle" placeholder="请设置标题" />
@@ -23,6 +20,10 @@
   <view class="paragraph">
     <div bindtap="addContent" class="addContent"><span class="iconfont icon-chuangjian1"></span>插入文本</div>
     <div bindtap="addPicture" class="addContent"><span class="iconfont icon-chuangjian1"></span>插入图片</div>
+    <view wx:for="{{paragraphContent}}">
+      <view wx:if="{{item.key=='text'}}">{{item.value}}</view>
+      <view wx:if="{{item.key=='image'}}"><image src="{{item.value}}"></image></view>
+    </view>
   </view>
   <view class="submitBtn">
     <div bindtap="submitForm">保 存</div>
