@@ -6,7 +6,8 @@ Page({
     animationData: {},
     travelInfo: {},
     paragraphContent: [],
-    textContent: '',
+    contentIndex: 0,
+    textContent: null,
     showMask: false,
     showTextBox: false,
   },
@@ -33,10 +34,13 @@ Page({
     that.setData({
       textContent: e.detail.value,
     })
-    that.data.paragraphContent.push({ key: 'text', value: that.data.textContent })
-    that.setData({
-      paragraphContent: that.data.paragraphContent
-    })
+    if (that.data.textContent) {
+      console.log('currentIndex:', that.data.contentIndex)
+      that.data.paragraphContent.push({ index: that.data.contentIndex, key: 'text', value: that.data.textContent })
+      that.setData({
+        paragraphContent: that.data.paragraphContent
+      })
+    }
     console.log(e.detail.value)
     console.log(that.data.paragraphContent)
   },
@@ -44,11 +48,14 @@ Page({
     var that = this
     console.log(that.data.paragraphContent)
   },
-  addContent: function () {
+  addContent: function (event) {
     var that = this
+    var currenIndex = parseInt(event.currentTarget.dataset.index) + 1
+    console.log('contentIndex:', event.currentTarget.dataset.index)
     that.setData({
       showMask: true,
-      showTextBox: true
+      showTextBox: true,
+      contentIndex: currenIndex
     })
     var animation = wx.createAnimation({
       duration: 300,

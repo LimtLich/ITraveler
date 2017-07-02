@@ -36,11 +36,16 @@
   height: 100%;
 }
 
-.paragraph {
-  position: absolute;
-  margin-bottom: 50px;
+.paragraph_default {
+  /*position: absolute;*/
+  margin-top: 260px;
   width: 100%;
-  top: 260px;
+  overflow: auto;
+}
+
+.paragraph {
+  /*position: absolute;*/
+  width: 100%;
   overflow: auto;
 }
 
@@ -53,9 +58,29 @@
   border-bottom: 1px solid #dfdfdf;
 }
 
+.paragraph_default .addContent {
+  width: 50%;
+  float: left;
+  line-height: 40px;
+  text-align: center;
+  height: 40px;
+  border-bottom: 1px solid #dfdfdf;
+}
+
 .paragraph span {
   font-size: 24px;
   color: #dfdfdf;
+}
+
+.paragraph_default span {
+  font-size: 24px;
+  color: #dfdfdf;
+}
+
+.paragraphBox {
+  overflow: auto;
+  margin-bottom: 50px;
+  width: 100%;
 }
 
 .content_text {
@@ -71,10 +96,10 @@
 
 .content_text button {
   width: 25%;
-  margin-left:15%;
-  float:left;
-  height:30px;
-  line-height:30px;
+  margin-left: 15%;
+  float: left;
+  height: 30px;
+  line-height: 30px;
 }
 
 .content_text p {

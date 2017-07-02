@@ -1,3 +1,4 @@
+
 <!--index.wxml-->
 <view class="shadow" wx:if="{{showMask}}"></view>
 <view class="container">
@@ -17,12 +18,20 @@
     </picker>
     <image src="/static/images/default.jpg"></image>
   </view>
-  <view class="paragraph">
-    <div bindtap="addContent" class="addContent"><span class="iconfont icon-chuangjian1"></span>插入文本</div>
-    <div bindtap="addPicture" class="addContent"><span class="iconfont icon-chuangjian1"></span>插入图片</div>
-    <view wx:for="{{paragraphContent}}">
-      <view wx:if="{{item.key=='text'}}">{{item.value}}</view>
-      <view wx:if="{{item.key=='image'}}"><image src="{{item.value}}"></image></view>
+  <view class="paragraph_default">
+    <view bindtap="addContent" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入文本</view>
+    <view bindtap="addPicture" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入图片</view>
+  </view>
+  <view class="paragraphBox">
+    <view class="paragraph" wx:for="{{paragraphContent}}">
+      <view>
+        <view wx:if="{{item.key=='text'}}">{{item.value}}</view>
+        <view wx:if="{{item.key=='image'}}">
+          <image src="{{item.value}}"></image>
+        </view>
+      </view>
+      <view bindtap="addContent" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入文本</view>
+      <view bindtap="addPicture" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入图片</view>
     </view>
   </view>
   <view class="submitBtn">
