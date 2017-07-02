@@ -33,7 +33,7 @@ Page({
     var that = this
     that.setData({
       textContent: e.detail.value,
-    }) 
+    })
   },
   submitForm: function () {
     var that = this
@@ -66,16 +66,29 @@ Page({
       })
     }.bind(this), 100)
   },
-  addPicture: function () {
+  addPicture: function (event) {
     var that = this
+    var currenIndex = parseInt(event.currentTarget.dataset.index) + 1
+    that.setData({
+      contentIndex: currenIndex
+    })
     wx.chooseImage({
       count: 1,
       success: function (res) {
         var tempFilePaths = res.tempFilePaths
-        that.data.paragraphContent.push({ key: 'image', value: tempFilePaths })
-        that.setData({
-          paragraphContent: that.data.paragraphContent
-        })
+        if (tempFilePaths) {
+          if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
+            that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
+              c.index = c.index + 1
+            })
+          }
+          that.data.paragraphContent.push({ index: that.data.contentIndex, key: 'image', value: tempFilePaths })
+          that.setData({
+            paragraphContent: that.data.paragraphContent.sort((a, b) => {
+              return a.index - b.index
+            })
+          })
+        }
         console.log(tempFilePaths)
       }
     })
@@ -100,7 +113,6 @@ Page({
         })
       })
     }
-    console.log(e.detail.value)
     console.log(that.data.paragraphContent)
     var animation = wx.createAnimation({
       duration: 300,
