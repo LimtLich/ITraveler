@@ -4,7 +4,7 @@
 <view class="container">
   <view animation="{{animationData}}" class="content_text" wx:if="{{showTextBox}}">
     <p>游记文本</p>
-    <textarea bindblur="bindTextAreaBlur" auto-focus placeholder="输入文本......" />
+    <textarea bindinput="bindTextAreaBlur" auto-focus placeholder="输入文本......" />
     <button bindtap="confirmText" type="primary">确认</button>
     <button bindtap="cancleText" type="default">取消</button>
   </view>

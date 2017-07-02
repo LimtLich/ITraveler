@@ -33,23 +33,7 @@ Page({
     var that = this
     that.setData({
       textContent: e.detail.value,
-    })
-    if (that.data.textContent) {
-      console.log('currentIndex:', that.data.contentIndex)
-      if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
-        that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
-          c.index = c.index + 1
-        })
-      }
-      that.data.paragraphContent.push({ index: that.data.contentIndex, key: 'text', value: that.data.textContent })
-      that.setData({
-        paragraphContent: that.data.paragraphContent.sort((a, b) => {
-          return a.index - b.index
-        })
-      })
-    }
-    console.log(e.detail.value)
-    console.log(that.data.paragraphContent)
+    }) 
   },
   submitForm: function () {
     var that = this
@@ -102,6 +86,22 @@ Page({
       showMask: false,
       showTextBox: false
     })
+    if (that.data.textContent) {
+      console.log('currentIndex:', that.data.contentIndex)
+      if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
+        that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
+          c.index = c.index + 1
+        })
+      }
+      that.data.paragraphContent.push({ index: that.data.contentIndex, key: 'text', value: that.data.textContent })
+      that.setData({
+        paragraphContent: that.data.paragraphContent.sort((a, b) => {
+          return a.index - b.index
+        })
+      })
+    }
+    console.log(e.detail.value)
+    console.log(that.data.paragraphContent)
     var animation = wx.createAnimation({
       duration: 300,
       timingFunction: 'ease',
