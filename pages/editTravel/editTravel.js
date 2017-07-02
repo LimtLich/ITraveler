@@ -36,9 +36,16 @@ Page({
     })
     if (that.data.textContent) {
       console.log('currentIndex:', that.data.contentIndex)
+      if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
+        that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
+          c.index = c.index + 1
+        })
+      }
       that.data.paragraphContent.push({ index: that.data.contentIndex, key: 'text', value: that.data.textContent })
       that.setData({
-        paragraphContent: that.data.paragraphContent
+        paragraphContent: that.data.paragraphContent.sort((a, b) => {
+          return a.index - b.index
+        })
       })
     }
     console.log(e.detail.value)
