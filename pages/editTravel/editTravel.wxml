@@ -1,10 +1,9 @@
-
 <!--index.wxml-->
 <view class="shadow" wx:if="{{showMask}}"></view>
 <view class="container">
   <view animation="{{animationData}}" class="content_text" wx:if="{{showTextBox}}">
     <p>游记文本</p>
-    <textarea bindinput="bindTextAreaBlur" auto-focus placeholder="输入文本......" />
+    <textarea bindinput="bindTextAreaBlur" value="{{textContent}}" auto-focus placeholder="输入文本......" />
     <button bindtap="confirmText" type="primary">确认</button>
     <button bindtap="cancleText" type="default">取消</button>
   </view>
@@ -19,19 +18,19 @@
     <image src="/static/images/default.jpg"></image>
   </view>
   <view class="paragraph_default">
-    <view bindtap="addContent" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span>  添加文字</view>
-    <view bindtap="addPicture" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span>  添加图片</view>
+    <view bindtap="addContent" data-type="add" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span> 添加文字</view>
+    <view bindtap="addPicture" data-type="add" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span> 添加图片</view>
   </view>
   <view class="paragraphBox">
     <view class="paragraph" wx:for="{{paragraphContent}}">
       <view>
-        <view class="paragraphText" wx:if="{{item.key=='text'}}">{{item.value}}</view>
-        <view class="paragraphImage" wx:if="{{item.key=='image'}}">
+        <view bindtap="addContent" data-type="edit" data-index="{{index}}" class="paragraphText" wx:if="{{item.key=='text'}}">{{item.value}}</view>
+        <view bindtap="addPicture" data-type="edit" data-index="{{index}}" class="paragraphImage" wx:if="{{item.key=='image'}}">
           <image src="{{item.value}}"></image>
         </view>
       </view>
-      <view bindtap="addContent" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入文字</view>
-      <view bindtap="addPicture" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入图片</view>
+      <view bindtap="addContent" data-type="add" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span> 插入文字</view>
+      <view bindtap="addPicture" data-type="add" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span> 插入图片</view>
     </view>
   </view>
   <view class="submitBtn">

@@ -8,8 +8,9 @@ Page({
     paragraphContent: [],
     contentIndex: 0,
     textContent: null,
+    currentType: null,
     showMask: false,
-    showTextBox: false,
+    showTextBox: false
   },
   bindDateChange: function (e) {
     var that = this
@@ -42,11 +43,22 @@ Page({
   addContent: function (event) {
     var that = this
     var currenIndex = parseInt(event.currentTarget.dataset.index) + 1
-    console.log('contentIndex:', event.currentTarget.dataset.index)
+    var currentType = event.currentTarget.dataset.type
+    console.log('currentType:', currentType)
+    console.log('contentIndex:', currenIndex)
+
+    if (currentType == 'edit') {
+      var editIndex = parseInt(event.currentTarget.dataset.index)
+      that.setData({
+        textContent: that.data.paragraphContent[editIndex].value
+      })
+    }
+
     that.setData({
       showMask: true,
       showTextBox: true,
-      contentIndex: currenIndex
+      contentIndex: currenIndex,
+      currentType: currentType
     })
     var animation = wx.createAnimation({
       duration: 300,
@@ -99,22 +111,37 @@ Page({
       showMask: false,
       showTextBox: false
     })
-    if (that.data.textContent.trim()) {
-      console.log('currentIndex:', that.data.contentIndex)
-      if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
-        that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
-          c.index = c.index + 1
+    if (that.data.currentType == 'add') {
+      if (that.data.textContent.trim()) {
+        console.log('currentIndex:', that.data.contentIndex)
+        if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
+          that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
+            c.index = c.index + 1
+          })
+        }
+        that.data.paragraphContent.push({ index: that.data.contentIndex, key: 'text', value: that.data.textContent })
+        that.setData({
+          paragraphContent: that.data.paragraphContent.sort((a, b) => {
+            return a.index - b.index
+          }),
+          textContent: null
         })
       }
-      that.data.paragraphContent.push({ index: that.data.contentIndex, key: 'text', value: that.data.textContent })
-      that.setData({
-        paragraphContent: that.data.paragraphContent.sort((a, b) => {
-          return a.index - b.index
-        }),
-        textContent:null
-      })
+    } else if (that.data.currentType == 'edit') {
+      var editIndex = that.data.contentIndex - 1
+      if (that.data.textContent.trim()) {
+        console.log(that.data.textContent)
+        that.data.paragraphContent[editIndex].value = that.data.textContent
+        that.setData({
+          paragraphContent: that.data.paragraphContent,
+          textContent: null
+        })
+      } else {
+        console.log('delete')
+      }
+    } else {
+      console.log('erro:', that.data.currentType)
     }
-    console.log(that.data.paragraphContent)
     var animation = wx.createAnimation({
       duration: 300,
       timingFunction: 'ease',
@@ -132,7 +159,8 @@ Page({
     var that = this
     that.setData({
       showMask: false,
-      showTextBox: false
+      showTextBox: false,
+      textContent: null
     })
     var animation = wx.createAnimation({
       duration: 300,
@@ -190,30 +218,4 @@ Page({
       url: '../travelManagement/travelManagement'
     })
   },
-  onShow: function () {
-
-  },
-  // rotateAndScale: function () {
-  //   // 旋转同时放大
-  //   this.animation.rotate(45).scale(2, 2).step()
-  //   this.setData({
-  //     animationData: this.animation.export()
-  //   })
-  // },
-  // rotateThenScale: function () {
-  //   // 先旋转后放大
-  //   this.animation.rotate(45).step()
-  //   this.animation.scale(2, 2).step()
-  //   this.setData({
-  //     animationData: this.animation.export()
-  //   })
-  // },
-  // rotateAndScaleThenTranslate: function () {
-  //   // 先旋转同时放大，然后平移
-  //   this.animation.rotate(45).scale(2, 2).step()
-  //   this.animation.translate(100, 100).step({ duration: 1000 })
-  //   this.setData({
-  //     animationData: this.animation.export()
-  //   })
-  // }
 })
