@@ -19,18 +19,18 @@
     <image src="/static/images/default.jpg"></image>
   </view>
   <view class="paragraph_default">
-    <view bindtap="addContent" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入文本</view>
-    <view bindtap="addPicture" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入图片</view>
+    <view bindtap="addContent" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span>  添加文字</view>
+    <view bindtap="addPicture" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span>  添加图片</view>
   </view>
   <view class="paragraphBox">
     <view class="paragraph" wx:for="{{paragraphContent}}">
       <view>
-        <view wx:if="{{item.key=='text'}}">{{item.value}}</view>
-        <view wx:if="{{item.key=='image'}}">
+        <view class="paragraphText" wx:if="{{item.key=='text'}}">{{item.value}}</view>
+        <view class="paragraphImage" wx:if="{{item.key=='image'}}">
           <image src="{{item.value}}"></image>
         </view>
       </view>
-      <view bindtap="addContent" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入文本</view>
+      <view bindtap="addContent" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入文字</view>
       <view bindtap="addPicture" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入图片</view>
     </view>
   </view>

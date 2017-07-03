@@ -49,30 +49,32 @@
   overflow: auto;
 }
 
-.paragraph .addContent {
+.paragraphText {
+  margin: 10px;
+  border: 1px solid #dfdfdf;
+  border-style: dotted;
+}
+
+.paragraphImage{
+  margin:20px;
+  width:90%;
+}
+
+.paragraphImage image{
+  width:100%;
+}
+
+.addContent {
   width: 50%;
   float: left;
   line-height: 40px;
   text-align: center;
   height: 40px;
+  border-top:1px solid #dfdfdf;
   border-bottom: 1px solid #dfdfdf;
 }
 
-.paragraph_default .addContent {
-  width: 50%;
-  float: left;
-  line-height: 40px;
-  text-align: center;
-  height: 40px;
-  border-bottom: 1px solid #dfdfdf;
-}
-
-.paragraph span {
-  font-size: 24px;
-  color: #dfdfdf;
-}
-
-.paragraph_default span {
+.icon-chuangjian1 {
   font-size: 24px;
   color: #dfdfdf;
 }

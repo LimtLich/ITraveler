@@ -99,7 +99,7 @@ Page({
       showMask: false,
       showTextBox: false
     })
-    if (that.data.textContent) {
+    if (that.data.textContent.trim()) {
       console.log('currentIndex:', that.data.contentIndex)
       if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
         that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
@@ -110,7 +110,8 @@ Page({
       that.setData({
         paragraphContent: that.data.paragraphContent.sort((a, b) => {
           return a.index - b.index
-        })
+        }),
+        textContent:null
       })
     }
     console.log(that.data.paragraphContent)
