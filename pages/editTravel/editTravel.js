@@ -81,6 +81,7 @@ Page({
   addPicture: function (event) {
     var that = this
     var currenIndex = parseInt(event.currentTarget.dataset.index) + 1
+    var currentType = event.currentTarget.dataset.type
     that.setData({
       contentIndex: currenIndex
     })
@@ -89,17 +90,27 @@ Page({
       success: function (res) {
         var tempFilePaths = res.tempFilePaths
         if (tempFilePaths) {
-          if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
-            that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
-              c.index = c.index + 1
+          if (currentType == 'edit') {
+            var editIndex = parseInt(event.currentTarget.dataset.index)
+            that.data.paragraphContent[editIndex].value = tempFilePaths
+            that.setData({
+              paragraphContent: that.data.paragraphContent
             })
+          } else if (currentType == 'add') {
+            if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
+              that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
+                c.index = c.index + 1
+              })
+            }
+            that.data.paragraphContent.push({ index: that.data.contentIndex, key: 'image', value: tempFilePaths })
+            that.setData({
+              paragraphContent: that.data.paragraphContent.sort((a, b) => {
+                return a.index - b.index
+              })
+            })
+          } else {
+            console.log('erro:', that.data.currentType)
           }
-          that.data.paragraphContent.push({ index: that.data.contentIndex, key: 'image', value: tempFilePaths })
-          that.setData({
-            paragraphContent: that.data.paragraphContent.sort((a, b) => {
-              return a.index - b.index
-            })
-          })
         }
         console.log(tempFilePaths)
       }

@@ -119,6 +119,14 @@
   font-size: 14px;
 }
 
+.deletePicBtn{
+  width:20%;
+  height:30px;
+  line-height:30px;
+  margin-top:-10px;
+  margin-bottom:10px;
+}
+
 .submitBtn {
   background: #fff;
   position: fixed;
