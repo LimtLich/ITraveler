@@ -55,13 +55,13 @@
   border-style: dotted;
 }
 
-.paragraphImage{
-  margin:20px;
-  width:90%;
+.paragraphImage {
+  margin: 20px;
+  width: 90%;
 }
 
-.paragraphImage image{
-  width:100%;
+.paragraphImage image {
+  width: 100%;
 }
 
 .addContent {
@@ -70,7 +70,7 @@
   line-height: 40px;
   text-align: center;
   height: 40px;
-  border-top:1px solid #dfdfdf;
+  border-top: 1px solid #dfdfdf;
   border-bottom: 1px solid #dfdfdf;
 }
 
@@ -88,11 +88,14 @@
 .content_text {
   z-index: 99999;
   position: fixed;
-  top: 30%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 5%;
+  width: 90%;
   border: 1px solid #dfdfdf;
   height: 230px;
   background: #fff;
-  border-radius: 10px;
   opacity: 0;
 }
 
@@ -113,18 +116,19 @@
 
 .content_text textarea {
   border: 1px solid #dfdfdf;
-  margin: 10px;
+  /*margin: 10px;*/
+  margin: 10px auto;
   padding: 5px;
   height: 120px;
   font-size: 14px;
 }
 
-.deletePicBtn{
-  width:15%;
-  height:30px;
-  line-height:30px;
-  margin-top:-10px;
-  margin-bottom:10px;
+.deletePicBtn {
+  width: 15%;
+  height: 30px;
+  line-height: 30px;
+  margin-top: -10px;
+  margin-bottom: 10px;
 }
 
 .submitBtn {

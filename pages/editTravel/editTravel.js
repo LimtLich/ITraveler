@@ -97,7 +97,7 @@ Page({
                 c.index = c.index + 1
               })
             }
-            that.data.paragraphContent.push({ travel_guid: travelID, index: that.data.contentIndex, key: 'image', value: tempFilePaths })
+            that.data.paragraphContent.push({ travel_guid: that.data.travelID, index: that.data.contentIndex, key: 'image', value: tempFilePaths })
             that.setData({
               paragraphContent: that.data.paragraphContent.sort((a, b) => {
                 return a.index - b.index
@@ -126,7 +126,7 @@ Page({
             c.index = c.index + 1
           })
         }
-        that.data.paragraphContent.push({ travel_guid: travelID, index: that.data.contentIndex, key: 'text', value: that.data.textContent })
+        that.data.paragraphContent.push({ travel_guid: that.data.travelID, index: that.data.contentIndex, key: 'text', value: that.data.textContent })
         that.setData({
           paragraphContent: that.data.paragraphContent.sort((a, b) => {
             return a.index - b.index
