@@ -1,3 +1,4 @@
+
 <!--index.wxml-->
 <view class="shadow" wx:if="{{showMask}}"></view>
 <view class="container">
@@ -18,8 +19,8 @@
     <image src="{{travelInfo.cover_img}}"></image>
   </view>
   <view class="paragraph_default">
-    <view bindtap="addContent" data-type="add" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span> 添加文字</view>
-    <view bindtap="addPicture" data-type="add" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span> 添加图片</view>
+    <view bindtap="addContent" data-type="add" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span>  添加文字</view>
+    <view bindtap="addPicture" data-type="add" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span>  添加图片</view>
   </view>
   <view class="paragraphBox">
     <view class="paragraph" wx:for="{{paragraphContent}}">
@@ -28,13 +29,13 @@
         <view bindtap="addPicture" data-type="edit" data-index="{{index}}" class="paragraphImage" wx:if="{{item.key=='image'}}">
           <image src="{{item.value}}"></image>
         </view>
-        <button bindtap="deletePicture" data-index="{{index}}" class="deletePicBtn" type="warn" wx:if="{{item.key=='image'}}"><span class="iconfont icon-lajitong-copy"></span></button>
+        <button bindtap="deletePicture" data-index="{{index}}" class="deletePicBtn" type="warn" wx:if="{{item.key=='image'}}">   <span class="iconfont icon-lajitong-copy"></span>  </button>
       </view>
-      <view bindtap="addContent" data-type="add" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span> 插入文字</view>
-      <view bindtap="addPicture" data-type="add" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span> 插入图片</view>
+      <view bindtap="addContent" data-type="add" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入文字</view>
+      <view bindtap="addPicture" data-type="add" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入图片</view>
     </view>
   </view>
-  <view class="submitBtn">
-    <div bindtap="submitForm">保 存</div>
+  <view bindtap="submitForm" class="submitBtn">
+    保 存
   </view>
 </view>

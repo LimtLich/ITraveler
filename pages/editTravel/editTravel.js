@@ -220,6 +220,10 @@ Page({
       content: '确认保存游记信息？',
       success: function (res) {
         if (res.confirm) {
+          wx.showLoading({
+            title: '保存中',
+            mask: true
+          })
           wx.request({
             url: 'https://www.mingomin.com/service/public/server/editTravel', //服务地址
             data: {
@@ -232,7 +236,10 @@ Page({
             },
             success: function (res) {
               var result = res.data
-              console.log(result)
+              wx.hideLoading()
+              wx.redirectTo({
+                url: '../travelManagement/travelManagement'
+              })
             },
             fail: function (res) {
               wx.showModal({
