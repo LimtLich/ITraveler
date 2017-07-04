@@ -3,6 +3,7 @@
 var app = getApp()
 Page({
   data: {
+    travelID: null,
     animationData: {},
     travelInfo: {},
     paragraphContent: [],
@@ -35,10 +36,6 @@ Page({
     that.setData({
       textContent: e.detail.value,
     })
-  },
-  submitForm: function () {
-    var that = this
-    console.log(that.data.paragraphContent)
   },
   addContent: function (event) {
     var that = this
@@ -89,7 +86,7 @@ Page({
       success: function (res) {
         var tempFilePaths = res.tempFilePaths
         if (tempFilePaths) {
-          if (currentType == 'edit') {         
+          if (currentType == 'edit') {
             that.data.paragraphContent[editIndex].value = tempFilePaths
             that.setData({
               paragraphContent: that.data.paragraphContent
@@ -100,7 +97,7 @@ Page({
                 c.index = c.index + 1
               })
             }
-            that.data.paragraphContent.push({ index: that.data.contentIndex, key: 'image', value: tempFilePaths })
+            that.data.paragraphContent.push({ travel_guid: travelID, index: that.data.contentIndex, key: 'image', value: tempFilePaths })
             that.setData({
               paragraphContent: that.data.paragraphContent.sort((a, b) => {
                 return a.index - b.index
@@ -129,7 +126,7 @@ Page({
             c.index = c.index + 1
           })
         }
-        that.data.paragraphContent.push({ index: that.data.contentIndex, key: 'text', value: that.data.textContent })
+        that.data.paragraphContent.push({ travel_guid: travelID, index: that.data.contentIndex, key: 'text', value: that.data.textContent })
         that.setData({
           paragraphContent: that.data.paragraphContent.sort((a, b) => {
             return a.index - b.index
@@ -215,11 +212,52 @@ Page({
       }
     })
   },
+  submitForm: function () {
+    var that = this
+    console.log(that.data.paragraphContent)
+    wx.showModal({
+      title: '提示',
+      content: '确认保存游记信息？',
+      success: function (res) {
+        if (res.confirm) {
+          wx.request({
+            url: 'https://www.mingomin.com/service/public/server/editTravel', //服务地址
+            data: {
+              travelID: that.data.travelID,
+              travelInfo: that.data.travelInfo,
+              paragraphContent: that.data.paragraphContent
+            },
+            header: {
+              'content-type': 'application/json'
+            },
+            success: function (res) {
+              var result = res.data
+              console.log(result)
+            },
+            fail: function (res) {
+              wx.showModal({
+                title: '错误',
+                showCancel: false,
+                content: res,
+                success: function (res) { }
+              })
+            }
+          })
+          console.log('用户点击确定')
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
   onLoad: function (option) {
     console.log('onload option:', option)
     var that = this
     var data = that.data
     if (option.guid) {
+      that.setData({
+        travelID: option.guid
+      })
       wx.request({
         url: 'https://www.mingomin.com/service/public/server/getTravelInfo', //服务地址
         data: {
