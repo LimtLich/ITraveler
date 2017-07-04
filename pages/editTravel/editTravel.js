@@ -44,8 +44,10 @@ Page({
     var that = this
     var currenIndex = parseInt(event.currentTarget.dataset.index) + 1
     var currentType = event.currentTarget.dataset.type
-    console.log('currentType:', currentType)
-    console.log('contentIndex:', currenIndex)
+    var animation = wx.createAnimation({
+      duration: 300,
+      timingFunction: 'ease',
+    })
 
     if (currentType == 'edit') {
       var editIndex = parseInt(event.currentTarget.dataset.index)
@@ -59,10 +61,6 @@ Page({
       showTextBox: true,
       contentIndex: currenIndex,
       currentType: currentType
-    })
-    var animation = wx.createAnimation({
-      duration: 300,
-      timingFunction: 'ease',
     })
 
     this.animation = animation
@@ -80,6 +78,7 @@ Page({
   },
   addPicture: function (event) {
     var that = this
+    var editIndex = parseInt(event.currentTarget.dataset.index)
     var currenIndex = parseInt(event.currentTarget.dataset.index) + 1
     var currentType = event.currentTarget.dataset.type
     that.setData({
@@ -90,8 +89,7 @@ Page({
       success: function (res) {
         var tempFilePaths = res.tempFilePaths
         if (tempFilePaths) {
-          if (currentType == 'edit') {
-            var editIndex = parseInt(event.currentTarget.dataset.index)
+          if (currentType == 'edit') {         
             that.data.paragraphContent[editIndex].value = tempFilePaths
             that.setData({
               paragraphContent: that.data.paragraphContent
@@ -118,6 +116,7 @@ Page({
   },
   confirmText: function () {
     var that = this
+    var editIndex = that.data.contentIndex - 1
     that.setData({
       showMask: false,
       showTextBox: false
@@ -139,7 +138,6 @@ Page({
         })
       }
     } else if (that.data.currentType == 'edit') {
-      var editIndex = that.data.contentIndex - 1
       if (that.data.textContent.trim()) {
         console.log(that.data.textContent)
         that.data.paragraphContent[editIndex].value = that.data.textContent
@@ -148,6 +146,14 @@ Page({
           textContent: null
         })
       } else {
+        that.data.paragraphContent.splice(editIndex, 1)
+        that.setData({
+          paragraphContent: that.data.paragraphContent,
+          textContent: null
+        })
+        that.data.paragraphContent.filter(e => e.index >= editIndex).map((c) => {
+          c.index = c.index - 1
+        })
         console.log('delete')
       }
     } else {
@@ -184,6 +190,29 @@ Page({
 
     this.setData({
       animationData: animation.export()
+    })
+  },
+  deletePicture: function (event) {
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '确认删除该图片？',
+      success: function (res) {
+        if (res.confirm) {
+          var Index = parseInt(event.currentTarget.dataset.index)
+          that.data.paragraphContent.splice(Index, 1)
+          that.setData({
+            paragraphContent: that.data.paragraphContent,
+            textContent: null
+          })
+          that.data.paragraphContent.filter(e => e.index >= Index).map((c) => {
+            c.index = c.index - 1
+          })
+          console.log('用户点击确定')
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     })
   },
   onLoad: function (option) {
