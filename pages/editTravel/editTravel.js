@@ -238,9 +238,9 @@ Page({
               var result = res.data
               console.log('request result:',result)
               wx.hideLoading()
-              wx.redirectTo({
-                url: '../travelManagement/travelManagement'
-              })
+              // wx.redirectTo({
+              //   url: '../travelManagement/travelManagement'
+              // })
             },
             fail: function (res) {
               wx.showModal({

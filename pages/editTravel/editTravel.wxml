@@ -11,9 +11,9 @@
   <view class="travelHead">
     <input class="Head_title" value="{{travelInfo.title}}" bindinput="bindTitle" placeholder="请设置标题" />
     <input class="Head_place" value="{{travelInfo.place}}" bindinput="bindPlace" placeholder="请设置地点" />
-    <picker class="Head_date" mode="date" value="{{travelInfo.date}}" start="2014-01-01" end="2020-12-30" bindchange="bindDateChange">
+    <picker class="Head_date" mode="date" start="2014-01-01" end="2020-12-30" bindchange="bindDateChange">
       <view class="picker">
-        2015-09-01
+        {{travelInfo.date}}
       </view>
     </picker>
     <image src="{{travelInfo.cover_img}}"></image>
