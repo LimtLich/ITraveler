@@ -193,8 +193,8 @@ Page({
   deletePicture: function (event) {
     var that = this
     wx.showModal({
-      title: '提示',
-      content: '确认删除该图片？',
+      title: 'Message',
+      content: 'Sure to delete this image?',
       success: function (res) {
         if (res.confirm) {
           var Index = parseInt(event.currentTarget.dataset.index)
@@ -217,8 +217,8 @@ Page({
     var that = this
     console.log(that.data.paragraphContent)
     wx.showModal({
-      title: '提示',
-      content: '确认保存游记信息？',
+      title: 'Message',
+      content: 'Sure to save this travel?',
       success: function (res) {
         if (res.confirm) {
           wx.showLoading({
@@ -245,7 +245,7 @@ Page({
             },
             fail: function (res) {
               wx.showModal({
-                title: '错误',
+                title: 'erro',
                 showCancel: false,
                 content: res,
                 success: function (res) { }
@@ -289,7 +289,7 @@ Page({
         },
         fail: function (res) {
           wx.showModal({
-            title: '错误',
+            title: 'erro',
             showCancel: false,
             content: res,
             success: function (res) { }

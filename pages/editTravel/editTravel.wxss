@@ -16,19 +16,25 @@
 }
 
 .travelHead .Head_title {
-  top: 48%;
-  width: 100%;
-  text-align: center;
+  top: 40%;
+  width:50%;
+  margin-left:30%;
+  border:2px solid #dfdfdf;
+  border-style: dotted;
 }
 
 .travelHead .Head_date {
   bottom: 2%;
   left: 2%;
+  border:2px solid #dfdfdf;
+  border-style: dotted;
 }
 
 .travelHead .Head_place {
   top: 2%;
   left: 2%;
+  border:2px solid #dfdfdf;
+  border-style: dotted;
 }
 
 .travelHead image {
@@ -43,10 +49,26 @@
   overflow: auto;
 }
 
+.paragraph_default span{
+  color:#91A0B2;
+}
+
 .paragraph {
   /*position: absolute;*/
   width: 100%;
   overflow: auto;
+  background:ghostwhite;
+}
+
+.upload_btn{
+  background:#dfdfdf;
+  display: inline-block;
+  width:100px;
+  height:100px;
+}
+
+.paragraph span{
+  color:#91A0B2;
 }
 
 .paragraphText {
@@ -72,6 +94,8 @@
   height: 40px;
   border-top: 1px solid #dfdfdf;
   border-bottom: 1px solid #dfdfdf;
+  background:ghostwhite;
+  color:slategrey;
 }
 
 .icon-chuangjian1 {
@@ -132,7 +156,8 @@
 }
 
 .submitBtn {
-  background: #fff;
+  background: #91A0B2;
+  color:#fff;
   position: fixed;
   width: 100%;
   bottom: 0;
@@ -142,6 +167,6 @@
   line-height: 50px;
 }
 
-.submitBtn:active {
+/*.submitBtn:active {
   background: #dfdfdf;
-}
+}*/

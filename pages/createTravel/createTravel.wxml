@@ -1,29 +1,28 @@
-
 <!--index.wxml-->
 <view class="container">
   <view class="upload_img" bindtap="uploadImage">
-    <image src="{{cover_img}}"></image>
-    <div class="upload_btn"> 上传封面图片   <span style="color:#fff" class="iconfont icon-UPphotos_line"></span>  </div>
-  </view>
-  <view class="submit">
-    <button bindtap="submitForm" type="default">提  交</button>
+    <image src="{{cover_img}}" mode="aspectFit"></image>
+    <div class="upload_btn"><span style="color:#fff" class="iconfont icon-UPphotos_line"></span> </div>
   </view>
   <view class="form">
     <view>
-      <span>标题：</span> 
-      <input value="{{title}}" bindinput="bindTitle" placeholder="请输入标题" />
+      <span>TITLE:</span>
+      <input value="{{title}}" bindinput="bindTitle" placeholder="Please enter a title" />
     </view>
     <view>
-      <span>地点：</span> 
-      <input value="{{place}}" bindinput="bindPlace" placeholder="请输入地点" />
+      <span>LOCATE:</span>
+      <input value="{{place}}" bindinput="bindPlace" placeholder="Please enter the location" />
     </view>
     <view>
-      <span>时间：</span> 
+      <span>DATE：</span>
       <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
         <view class="picker">
           {{date}}
         </view>
       </picker>
     </view>
+  </view>
+  <view class="submit">
+    <button bindtap="submitForm" type="default">COMMIT</button>
   </view>
 </view>

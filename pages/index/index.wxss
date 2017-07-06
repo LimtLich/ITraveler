@@ -1,4 +1,5 @@
 /**index.wxss**/
+
 .userinfo {
   display: flex;
   flex-direction: column;
@@ -25,15 +26,39 @@
                  sans-serif;
 }
 
-@media screen and (max-width:640px) {
+/*5s*/
+
+@media screen and (max-width:375px) {
+  .home_img image {
+    height: 325px;
+  }
+
   .home_button {
-    margin-top: 15px;
+    margin-top: 0;
   }
 }
 
-@media screen and (min-width:640px) {
+/*6s*/
+
+@media screen and (min-width:375px) {
+  .home_img image {
+    height: 400px;
+  }
+
   .home_button {
-    margin-top: 55px;
+    margin-top: 7px;
+  }
+}
+
+/*6splus*/
+
+@media screen and (min-width:400px) {
+  .home_img image {
+    height: 452px;
+  }
+
+  .home_button {
+    margin-top: 5px;
   }
 }
 
@@ -42,15 +67,15 @@
 }
 
 .home_button button {
-  margin: 30px;
+  margin: 60rpx;
   width: 200px;
-  color:#fff;
-  background:#91A0B2;
+  color: #fff;
+  background: #91a0b2;
 }
 
 .home_button span {
-  font-size:20px;
-  padding-left:5px;
+  font-size: 20px;
+  padding-left: 5px;
 }
 
 .home_img {
@@ -59,7 +84,4 @@
 
 .home_img image {
   width: 100%;
-  height: 360px;
 }
-
-

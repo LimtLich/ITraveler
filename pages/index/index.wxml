@@ -2,14 +2,14 @@
 <!--index.wxml-->
 <view class="container">
   <view class="home_img">
-    <image src="/static/images/sky.jpg"></image>
+    <image src="/static/images/tick.jpg"></image>
   </view>
   <view class="userinfo">
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    <!--<text class="userinfo-nickname">{{userInfo.nickName}}</text>-->
   </view>
   <view class="home_button">
-    <button bindtap="CreateTravel"> 创建游记  <span class="iconfont icon-chuangjian1"></span> </button>
-    <button bindtap="TravelManagement"> 管理游记  <span class="iconfont icon-guanli2"></span> </button>
+    <button bindtap="CreateTravel"> CREATE TRAVEL<span class="iconfont icon-chuangjian1"></span> </button>
+    <button bindtap="TravelManagement"> MY  TRAVEL  <span class="iconfont icon-guanli2"></span> </button>
   </view>
 </view>

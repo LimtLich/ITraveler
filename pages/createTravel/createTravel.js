@@ -42,13 +42,13 @@ Page({
     var that = this
     var data = that.data
     if (data.title == '') {
-      data.validMsg = '未设定游记标题'
+      data.validMsg = 'Please enter a title'
       return false
     } else if (data.place == '') {
-      data.validMsg = '未设定游记地点'
+      data.validMsg = 'Please enter the location'
       return false
     } else if (data.cover_img === '/static/images/default.jpg') {
-      data.validMsg = '未设定游记封面'
+      data.validMsg = 'Please upload the background image'
       return false
     } else {
       return true
@@ -58,7 +58,7 @@ Page({
     var that = this
     if (that.valid()) {
       wx.showLoading({
-        title: '提交中',
+        title: 'loading',
         mask: true
       })
       wx.uploadFile({
@@ -89,7 +89,8 @@ Page({
             fail: function (res) {
               wx.hideLoading()
               wx.showModal({
-                title: '错误',
+                title: 'Message',
+                confirmText: 'Ok',
                 showCancel: false,
                 content: res,
                 success: function (res) { }
@@ -100,9 +101,10 @@ Page({
         fail: function (res) {
           wx.hideLoading()
           wx.showModal({
-            title: '错误',
+            title: 'Message',
             showCancel: false,
             content: res,
+            confirmText: 'Ok',
             success: function (res) {
               if (res.confirm) {
                 console.log('用户点击确定')
@@ -113,7 +115,8 @@ Page({
       })
     } else {
       wx.showModal({
-        title: '提示',
+        title: 'Message',
+        confirmText: 'Ok',
         showCancel: false,
         content: this.data.validMsg,
         success: function (res) { }
@@ -124,7 +127,7 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     var that = this
     wx.setNavigationBarTitle({
-      title: '创建游记'
+      title: 'CREATE'
     })
     //初始化日期
     var year = new Date().getFullYear()

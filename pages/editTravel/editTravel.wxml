@@ -1,41 +1,40 @@
-
 <!--index.wxml-->
 <view class="shadow" wx:if="{{showMask}}"></view>
 <view class="container">
   <view animation="{{animationData}}" class="content_text" wx:if="{{showTextBox}}">
-    <p>游记文本</p>
-    <textarea bindinput="bindTextAreaBlur" value="{{textContent}}" textarea fixed="true" auto-focus placeholder="输入文本......" />
-    <button bindtap="confirmText" type="primary">确认</button>
-    <button bindtap="cancleText" type="default">取消</button>
+    <p>Travel text</p>
+    <textarea bindinput="bindTextAreaBlur" value="{{textContent}}" textarea fixed="true" auto-focus placeholder="enter text......" />
+    <button bindtap="confirmText" type="primary">sure</button>
+    <button bindtap="cancleText" type="default">cancel</button>
   </view>
   <view class="travelHead">
-    <input class="Head_title" value="{{travelInfo.title}}" bindinput="bindTitle" placeholder="请设置标题" />
-    <input class="Head_place" value="{{travelInfo.place}}" bindinput="bindPlace" placeholder="请设置地点" />
+    <input class="Head_title" value="{{travelInfo.title}}" bindinput="bindTitle" placeholder="TITLE" />
+    <input class="Head_place" value="{{travelInfo.place}}" bindinput="bindPlace" placeholder="LOCATION" />
     <picker class="Head_date" mode="date" start="2014-01-01" end="2020-12-30" bindchange="bindDateChange">
       <view class="picker">
         {{travelInfo.date}}
       </view>
     </picker>
-    <image src="{{travelInfo.cover_img}}"></image>
+    <image src="{{travelInfo.cover_img}}" mode="aspectFill"></image>
   </view>
   <view class="paragraph_default">
-    <view bindtap="addContent" data-type="add" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span>  添加文字</view>
-    <view bindtap="addPicture" data-type="add" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span>  添加图片</view>
+    <view bindtap="addContent" data-type="add" data-index="-1" class="addContent"><span class="iconfont icon-writing_line"></span>text</view>
+    <view bindtap="addPicture" data-type="add" data-index="-1" class="addContent"><span class="iconfont icon-icon17"></span>image</view>
   </view>
   <view class="paragraphBox">
     <view class="paragraph" wx:for="{{paragraphContent}}" wx:key="id">
       <view>
         <view bindtap="addContent" data-type="edit" data-index="{{index}}" class="paragraphText" wx:if="{{item.key=='text'}}">{{item.value}}</view>
-        <view bindtap="addPicture" data-type="edit" data-index="{{index}}" class="paragraphImage" wx:if="{{item.key=='image'}}">
-          <image src="{{item.value}}"></image>
+        <view bindtap="addPicture" data-type="edit" data-index="{{index}}" class="paragraphImage" wx:if="{{item.key=='image'}}">       
+          <image src="{{item.value}}" mode="aspectFit"></image>
         </view>
-        <button bindtap="deletePicture" data-index="{{index}}" class="deletePicBtn" type="warn" wx:if="{{item.key=='image'}}">   <span class="iconfont icon-lajitong-copy"></span>  </button>
+        <button bindtap="deletePicture" data-index="{{index}}" class="deletePicBtn" type="warn" wx:if="{{item.key=='image'}}"> <span style="color:#fff" class="iconfont icon-lajitong-copy"></span> </button>
       </view>
-      <view bindtap="addContent" data-type="add" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入文字</view>
-      <view bindtap="addPicture" data-type="add" data-index="{{index}}" class="addContent"><span class="iconfont icon-chuangjian1"></span>  插入图片</view>
+      <view bindtap="addContent" data-type="add" data-index="{{index}}" class="addContent"><span class="iconfont icon-writing_line"></span> text</view>
+      <view bindtap="addPicture" data-type="add" data-index="{{index}}" class="addContent"><span class="iconfont icon-icon17"></span> image</view>
     </view>
   </view>
   <view bindtap="submitForm" class="submitBtn">
-    保 存
+    COMMIT
   </view>
 </view>

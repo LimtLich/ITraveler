@@ -1,12 +1,19 @@
 /* pages/createTravel/createTravel.wxss */
+
 .upload_img {
-  width: 100%;
-  height: 320px;
+  width: 95%;
+  height: 260px;
+  /*border: 2px solid #dfdfdf;
+  border-style: dotted;
+  border-radius: 5px;*/
+  margin: 2.5% 2.5% 0 2.5%;
 }
 
 .upload_img image {
-  width: 100%;
+  width: 96%;
   height: 100%;
+  margin-left: 2%;
+  /*background:#dfdfdf;*/
 }
 
 .upload_img .upload_btn {
@@ -21,8 +28,7 @@
 }
 
 .upload_img span {
-  color: lightskyblue;
-  font-size: 18px;
+  font-size: 80px;
 }
 
 .submit {
@@ -36,25 +42,33 @@
   font-size: 16px;
 }
 
+@media screen and (max-width:375px) {
+  .form {
+    top: 45% !important;
+  }
+}
+
 .form {
   width: 100%;
+  position: fixed;
+  left: 2%;
+  top: 40%;
 }
 
 .form input {
-  width: 70%;
+  width: 100%;
   border: 1px solid #dfdfdf;
-  margin-top: 10px;
+  border-style: dotted;
+  display: inline-block;
+  margin-top: 5%;
 }
 
 .form .picker {
   border: 1px solid #dfdfdf;
-  margin-left: 16%;
-}
-
-.form span {
-  float: left;
+  border-style: dotted;
+  margin: 5% 0 0 0;
 }
 
 .form view {
-  margin: 40px 30px 0 30px;
+  margin: 5% 30px 0 5%;
 }
