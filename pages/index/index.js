@@ -31,7 +31,7 @@ Page({
             console.log(res)
             //发起网络请求
             wx.request({
-              url: 'https://www.mingomin.com/service/public/server/getOpenid',
+              url: 'https://www.mingomin.com/service/public/server/login',
               data: {
                 code: res.code
               }
