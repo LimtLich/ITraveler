@@ -23,7 +23,7 @@
     <view bindtap="addPicture" data-type="add" data-index="-1" class="addContent"><span class="iconfont icon-chuangjian1"></span>  添加图片</view>
   </view>
   <view class="paragraphBox">
-    <view class="paragraph" wx:for="{{paragraphContent}}">
+    <view class="paragraph" wx:for="{{paragraphContent}}" wx:key="id">
       <view>
         <view bindtap="addContent" data-type="edit" data-index="{{index}}" class="paragraphText" wx:if="{{item.key=='text'}}">{{item.value}}</view>
         <view bindtap="addPicture" data-type="edit" data-index="{{index}}" class="paragraphImage" wx:if="{{item.key=='image'}}">

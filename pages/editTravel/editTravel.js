@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+require('../../utils/date-format.js').dateformat()
 var app = getApp()
 Page({
   data: {
@@ -236,7 +237,7 @@ Page({
             },
             success: function (res) {
               var result = res.data
-              console.log('request result:',result)
+              console.log('request result:', result)
               wx.hideLoading()
               // wx.redirectTo({
               //   url: '../travelManagement/travelManagement'
@@ -281,7 +282,7 @@ Page({
               title: result.title,
               place: result.place,
               cover_img: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + result.cover_img,
-              date: result.date
+              date: new Date(result.date).Format('yyyy-MM-dd')
             }
           })
           console.log(data.travelInfo)
