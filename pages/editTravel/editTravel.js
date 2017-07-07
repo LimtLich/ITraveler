@@ -219,10 +219,12 @@ Page({
     wx.showModal({
       title: 'Message',
       content: 'Sure to save this travel?',
+      confirmText: 'Yes',
+      cancelText:'No',
       success: function (res) {
         if (res.confirm) {
           wx.showLoading({
-            title: '保存中',
+            title: 'loading',
             mask: true
           })
           wx.request({
@@ -239,9 +241,9 @@ Page({
               var result = res.data
               console.log('request result:', result)
               wx.hideLoading()
-              // wx.redirectTo({
-              //   url: '../travelManagement/travelManagement'
-              // })
+              wx.redirectTo({
+                url: '../travelManagement/travelManagement'
+              })
             },
             fail: function (res) {
               wx.showModal({
@@ -263,6 +265,9 @@ Page({
     console.log('onload option:', option)
     var that = this
     var data = that.data
+    wx.setNavigationBarTitle({
+      title: 'EDIT'
+    })
     if (option.guid) {
       that.setData({
         travelID: option.guid

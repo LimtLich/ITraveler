@@ -1,1 +1,4 @@
 /* pages/travelManagement/travelManagement.wxss */
+.allTravels{
+  background:#dfdfdf;
+}

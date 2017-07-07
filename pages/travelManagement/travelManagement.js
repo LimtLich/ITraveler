@@ -1,10 +1,33 @@
-// pages/travelManagement/travelManagement.js
 Page({
-  data: {},
-  onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
+  data: {
+    travels: []
+  },
+  onLoad: function () {
+    var that = this
+    var data = that.data
     wx.setNavigationBarTitle({
-      title: '管理游记'
+      title: 'MY TRAVEL'
+    })
+    wx.request({
+      url: 'https://www.mingomin.com/service/public/server/getTravels', //服务地址
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        var result = res.data
+        that.setData({
+          travels: result
+        })
+        console.log(data.travels)
+      },
+      fail: function (res) {
+        wx.showModal({
+          title: 'erro',
+          showCancel: false,
+          content: res,
+          success: function (res) { }
+        })
+      }
     })
   },
   onReady: function () {

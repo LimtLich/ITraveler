@@ -1,2 +1,6 @@
-<!--pages/travelManagement/travelManagement.wxml-->
-<text>management</text>
+<!--index.wxml-->
+<view class="container">
+  <view class="allTravels" wx:for="{{travels}}" wx:key="id">
+    <image src="{{item.value}}"></image>
+  </view>
+</view>
