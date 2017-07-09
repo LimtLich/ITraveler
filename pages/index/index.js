@@ -25,7 +25,6 @@ Page({
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function (userInfo) {
       //更新数据
-      console.log(userInfo)
       that.setData({
         userInfo: userInfo
       })
@@ -35,18 +34,27 @@ Page({
             console.log(res)
             //发起网络请求
             var header = {}
-            var session_id = wx.getStorageSync('session_id')
-            if (session_id) {
-              console.log(session_id)
+            var sessionID = wx.getStorageSync('sessionID')
+            if (sessionID) {
+              console.log(sessionID)
               header = {
                 'content-type': 'application/json',
-                'Cookie': 'sessionID=' + session_id
+                'Cookie': 'sessionID=' + sessionID
               }
             } else {
               header = {
                 'content-type': 'application/json'
               }
             }
+            // wx.getUserInfo({
+            //   success: function (res) {
+            //     //获取用户敏感数据密文和偏移向量
+            //     console.log('encry:',res.encryptedData)
+            //     console.log('iv:',res.iv)
+            //     // that.setData({ encryptedData: res.encryptedData })
+            //     // that.setData({ iv: res.iv })
+            //   }
+            // })
             wx.request({
               url: 'https://www.mingomin.com/service/public/server/login',
               data: {
@@ -54,9 +62,8 @@ Page({
               },
               header: header,
               success: function (e) {
-                console.log(e)
-                if (!session_id) {
-                  wx.setStorageSync('session_id', e.data)
+                if (!sessionID) {
+                  wx.setStorageSync('sessionID', e.data)
                 }
                 wx.hideLoading()
               }
