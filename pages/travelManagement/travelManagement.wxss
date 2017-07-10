@@ -1,4 +1,14 @@
 /* pages/travelManagement/travelManagement.wxss */
 .allTravels{
-  background:#dfdfdf;
+  width:90%;
+  background:none;
+  margin:10px;
+  border-radius: 10px;
+  border:1px solid #fff;
+  overflow:hidden;
+}
+
+.allTravels image{
+  width:100%;
+  -webkit-filter: blur(3px);
 }
