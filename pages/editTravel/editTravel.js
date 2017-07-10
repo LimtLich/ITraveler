@@ -215,51 +215,67 @@ Page({
   },
   submitForm: function () {
     var that = this
+    var sessionID = wx.getStorageSync('sessionID')
     console.log(that.data.paragraphContent)
-    wx.showModal({
-      title: 'Message',
-      content: 'Sure to save this travel?',
-      confirmText: 'Yes',
-      cancelText:'No',
-      success: function (res) {
-        if (res.confirm) {
-          wx.showLoading({
-            title: 'loading',
-            mask: true
-          })
-          wx.request({
-            url: 'https://www.mingomin.com/service/public/server/editTravel', //服务地址
-            data: {
-              travelID: that.data.travelID,
-              travelInfo: that.data.travelInfo,
-              paragraphContent: that.data.paragraphContent
-            },
-            header: {
-              'content-type': 'application/json'
-            },
-            success: function (res) {
-              var result = res.data
-              console.log('request result:', result)
-              wx.hideLoading()
-              wx.redirectTo({
-                url: '../travelManagement/travelManagement'
-              })
-            },
-            fail: function (res) {
-              wx.showModal({
-                title: 'erro',
-                showCancel: false,
-                content: res,
-                success: function (res) { }
-              })
-            }
-          })
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+    if (sessionID) {
+      wx.showModal({
+        title: 'Message',
+        content: 'Sure to save this travel?',
+        confirmText: 'Yes',
+        cancelText: 'No',
+        success: function (res) {
+          if (res.confirm) {
+            wx.showLoading({
+              title: 'loading',
+              mask: true
+            })
+            wx.request({
+              url: 'https://www.mingomin.com/service/public/server/editTravel', //服务地址
+              data: {
+                travelID: that.data.travelID,
+                travelInfo: that.data.travelInfo,
+                paragraphContent: that.data.paragraphContent
+              },
+              header: {
+                'content-type': 'application/json',
+                'Cookie': 'sessionID=' + sessionID
+              },
+              success: function (res) {
+                var result = res.data
+                console.log('request result:', result)
+                wx.hideLoading()
+                wx.redirectTo({
+                  url: '../travelManagement/travelManagement'
+                })
+              },
+              fail: function (res) {
+                wx.showModal({
+                  title: 'erro',
+                  showCancel: false,
+                  content: res,
+                  success: function (res) { }
+                })
+              }
+            })
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
         }
-      }
-    })
+      })
+    } else {
+      wx.showModal({
+        title: 'Error',
+        confirmText: 'Ok',
+        showCancel: false,
+        content: 'access timeout!',
+        success: function (res) {
+          wx.redirectTo({
+            url: '../index/index'
+          })
+        }
+      })
+    }
   },
   onLoad: function (option) {
     console.log('onload option:', option)
@@ -304,10 +320,10 @@ Page({
     } else {
       console.log('data not exit')
     }
-  },
-  onUnload: function () {
-    wx.redirectTo({
-      url: '../travelManagement/travelManagement'
-    })
-  },
+  }
+  // onUnload: function () {
+  //   wx.redirectTo({
+  //     url: '../travelManagement/travelManagement'
+  //   })
+  // },
 })

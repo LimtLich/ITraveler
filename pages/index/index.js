@@ -20,7 +20,7 @@ Page({
     var that = this
     wx.showLoading({
       title: 'loading',
-      mask: false
+      mask: true
     })
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function (userInfo) {
@@ -46,15 +46,6 @@ Page({
                 'content-type': 'application/json'
               }
             }
-            // wx.getUserInfo({
-            //   success: function (res) {
-            //     //获取用户敏感数据密文和偏移向量
-            //     console.log('encry:',res.encryptedData)
-            //     console.log('iv:',res.iv)
-            //     // that.setData({ encryptedData: res.encryptedData })
-            //     // that.setData({ iv: res.iv })
-            //   }
-            // })
             wx.request({
               url: 'https://www.mingomin.com/service/public/server/login',
               data: {

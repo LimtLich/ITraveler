@@ -56,70 +56,86 @@ Page({
   },
   submitForm: function () {
     var that = this
-    if (that.valid()) {
-      wx.showLoading({
-        title: 'loading',
-        mask: true
-      })
-      wx.uploadFile({
-        url: 'https://www.mingomin.com/service/public/upload/file', //服务地址
-        filePath: that.data.cover_img[0],
-        name: 'file',
-        success: function (res) {
-          var resData = JSON.parse(res.data)
-          var data = that.data
-          wx.request({
-            url: 'https://www.mingomin.com/service/public/server/createTravel', //服务地址
-            data: {
-              title: data.title,
-              place: data.place,
-              date: data.date,
-              cover_img: resData.id
-            },
-            header: {
-              'content-type': 'application/json'
-            },
-            success: function (res) {
-              console.log(res.data)
-              wx.hideLoading()
-              wx.redirectTo({
-                url: '../editTravel/editTravel?guid=' + res.data + ''
-              })
-            },
-            fail: function (res) {
-              wx.hideLoading()
-              wx.showModal({
-                title: 'Message',
-                confirmText: 'Ok',
-                showCancel: false,
-                content: res,
-                success: function (res) { }
-              })
-            }
-          })
-        },
-        fail: function (res) {
-          wx.hideLoading()
-          wx.showModal({
-            title: 'Message',
-            showCancel: false,
-            content: res,
-            confirmText: 'Ok',
-            success: function (res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
+    var sessionID = wx.getStorageSync('sessionID')
+    if (sessionID) {
+      if (that.valid()) {
+        wx.showLoading({
+          title: 'loading',
+          mask: true
+        })
+        wx.uploadFile({
+          url: 'https://www.mingomin.com/service/public/upload/file', //服务地址
+          filePath: that.data.cover_img[0],
+          name: 'file',
+          success: function (res) {
+            var resData = JSON.parse(res.data)
+            var data = that.data
+            wx.request({
+              url: 'https://www.mingomin.com/service/public/server/createTravel', //服务地址
+              data: {
+                title: data.title,
+                place: data.place,
+                date: data.date,
+                cover_img: resData.id
+              },
+              header: {
+                'content-type': 'application/json',
+                'Cookie': 'sessionID=' + sessionID
+              },
+              success: function (res) {
+                console.log('createResult:',res.data)
+                wx.hideLoading()
+                wx.redirectTo({
+                  url: '../editTravel/editTravel?guid=' + res.data + ''
+                })
+              },
+              fail: function (res) {
+                wx.hideLoading()
+                wx.showModal({
+                  title: 'Message',
+                  confirmText: 'Ok',
+                  showCancel: false,
+                  content: res,
+                  success: function (res) { }
+                })
               }
-            }
-          })
-        }
-      })
+            })
+          },
+          fail: function (res) {
+            wx.hideLoading()
+            wx.showModal({
+              title: 'Message',
+              showCancel: false,
+              content: res,
+              confirmText: 'Ok',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                }
+              }
+            })
+          }
+        })
+      } else {
+        wx.showModal({
+          title: 'Message',
+          confirmText: 'Ok',
+          showCancel: false,
+          content: this.data.validMsg,
+          success: function (res) { }
+        })
+      }
     } else {
       wx.showModal({
-        title: 'Message',
+        title: 'Error',
         confirmText: 'Ok',
         showCancel: false,
-        content: this.data.validMsg,
-        success: function (res) { }
+        content: 'access timeout!',
+        success: function (res) {
+          wx.redirectTo({
+            url: '../index/index'
+          })
+        }
       })
     }
   },
