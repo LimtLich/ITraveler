@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
   <view class="allTravels" wx:for="{{travels}}" wx:key="id">
-    <image src="{{item.value}}"></image>
+    <image src="{{item.cover_img}}"></image>
   </view>
 </view>
