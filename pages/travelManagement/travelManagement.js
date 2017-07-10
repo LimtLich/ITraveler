@@ -5,13 +5,15 @@ Page({
   onLoad: function () {
     var that = this
     var data = that.data
+    var sessionID = wx.getStorageSync('sessionID')
     wx.setNavigationBarTitle({
       title: 'MY TRAVEL'
     })
     wx.request({
       url: 'https://www.mingomin.com/service/public/server/getTravels', //服务地址
       header: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'Cookie': 'sessionID=' + sessionID
       },
       success: function (res) {
         var result = res.data
