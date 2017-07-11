@@ -31,12 +31,10 @@ Page({
       wx.login({
         success: function (res) {
           if (res.code) {
-            console.log(res)
             //发起网络请求
             var header = {}
             var sessionID = wx.getStorageSync('sessionID')
             if (sessionID) {
-              console.log(sessionID)
               header = {
                 'content-type': 'application/json',
                 'Cookie': 'sessionID=' + sessionID

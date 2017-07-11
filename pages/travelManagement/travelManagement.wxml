@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="Travels" wx:for="{{travels}}" wx:key="id">    
-    <image src="{{item.cover_img}}" mode="aspectFill"></image>
+  <view bindtap="viewTravel" data-guid="{{item.guid}}" class="Travels" wx:for="{{travels}}" wx:key="id">    
+    <image src="https://www.mingomin.com/service/public/upload/getAttachment?id={{item.cover_img}}" mode="aspectFill"></image>
     <p class='Travels_title'>{{item.title}}</p>
     <p class='Travels_date'>{{item.date}}</p>
   </view>

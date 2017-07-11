@@ -4,7 +4,8 @@
     "pages/logs/logs",
     "pages/createTravel/createTravel",
     "pages/travelManagement/travelManagement",
-    "pages/editTravel/editTravel"
+    "pages/editTravel/editTravel",
+    "pages/viewTravel/viewTravel"
   ],
   "window": {
     "backgroundTextStyle": "light",

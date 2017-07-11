@@ -1,0 +1,25 @@
+<!--index.wxml-->
+<view class="shadow" wx:if="{{showMask}}"></view>
+<view class="container">
+  <view class="travelHead">
+    <input class="Head_title" value="{{travelInfo.title}}" bindinput="bindTitle" disabled placeholder="TITLE" />
+    <input class="Head_place" value="{{travelInfo.place}}" bindinput="bindPlace" disabled placeholder="LOCATION" />
+    <view class="picker">
+      {{travelInfo.date}}
+    </view>
+    <image src="{{cover_img}}" mode="aspectFill"></image>
+  </view>
+  <view class="paragraphBox">
+    <view class="paragraph" wx:for="{{paragraphContent}}" wx:key="id">
+      <view>
+        <view bindtap="addContent" data-type="edit" data-index="{{index}}" class="paragraphText" wx:if="{{item.key=='text'}}">{{item.value}}</view>
+        <view bindtap="addPicture" data-type="edit" data-index="{{index}}" class="paragraphImage" wx:if="{{item.key=='image'}}">
+          <image src="https://www.mingomin.com/service/public/upload/getAttachment?id={{item.value}}" mode="aspectFit"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view bindtap="gotoEdit" class="editBtn">
+    GO TO EDIT!
+  </view>
+</view>

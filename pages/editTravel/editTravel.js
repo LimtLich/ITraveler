@@ -4,6 +4,7 @@ require('../../utils/date-format.js').dateformat()
 var app = getApp()
 Page({
   data: {
+    cover_img: null,
     travelID: null,
     animationData: {},
     travelInfo: {},
@@ -85,29 +86,41 @@ Page({
       success: function (res) {
         var tempFilePaths = res.tempFilePaths
         if (tempFilePaths) {
-          if (currentType == 'edit') {
-            that.data.paragraphContent[editIndex].value = tempFilePaths
-            that.setData({
-              paragraphContent: that.data.paragraphContent
-            })
-          } else if (currentType == 'add') {
-            //update index
-            if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
-              that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
-                c.index = c.index + 1
-              })
+          wx.showLoading({
+            title: 'loading',
+            mask: true
+          })
+          wx.uploadFile({
+            url: 'https://www.mingomin.com/service/public/upload/file', //服务地址
+            filePath: tempFilePaths[0],
+            name: 'file',
+            success: function (res) {
+              var resData = JSON.parse(res.data)
+              wx.hideLoading()
+              if (currentType == 'edit') {
+                that.data.paragraphContent[editIndex].value = resData.id
+                that.setData({
+                  paragraphContent: that.data.paragraphContent
+                })
+              } else if (currentType == 'add') {
+                //update index
+                if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
+                  that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
+                    c.index = c.index + 1
+                  })
+                }
+                that.data.paragraphContent.push({ travel_guid: that.data.travelID, index: that.data.contentIndex, key: 'image', value: resData.id })
+                that.setData({
+                  paragraphContent: that.data.paragraphContent.sort((a, b) => {
+                    return a.index - b.index
+                  })
+                })
+              } else {
+                console.log('erro:', that.data.currentType)
+              }
             }
-            that.data.paragraphContent.push({ travel_guid: that.data.travelID, index: that.data.contentIndex, key: 'image', value: tempFilePaths[0] })
-            that.setData({
-              paragraphContent: that.data.paragraphContent.sort((a, b) => {
-                return a.index - b.index
-              })
-            })
-          } else {
-            console.log('erro:', that.data.currentType)
-          }
+          })
         }
-        console.log(tempFilePaths)
       }
     })
   },
@@ -279,9 +292,12 @@ Page({
     }
   },
   onLoad: function (option) {
-    console.log('onload option:', option)
     var that = this
     var data = that.data
+    wx.showLoading({
+      title: 'loading',
+      mask: true
+    })
     wx.setNavigationBarTitle({
       title: 'EDIT'
     })
@@ -298,16 +314,17 @@ Page({
           'content-type': 'application/json'
         },
         success: function (res) {
-          var result = res.data
+          var travel = res.data
+          var travelDetails = travel.travel_details
+          travel.date = new Date(travel.date).Format('yyyy-MM-dd')
+          console.log('dateAfter:', travel.date)
           that.setData({
-            travelInfo: {
-              title: result.title,
-              place: result.place,
-              cover_img: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + result.cover_img,
-              date: new Date(result.date).Format('yyyy-MM-dd')
-            }
+            cover_img: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + travel.cover_img,
+            travelInfo: travel,
+            paragraphContent: travelDetails
           })
-          console.log(data.travelInfo)
+          wx.hideLoading()
+          console.log('data-travelInfo:', travel)
         },
         fail: function (res) {
           wx.showModal({

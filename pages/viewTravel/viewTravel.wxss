@@ -1,0 +1,151 @@
+.travelHead {
+  position: absolute;
+  width: 100%;
+  height: 250px;
+  z-index: 9999;
+}
+
+.travelHead input {
+  position: absolute;
+  color: #fff;
+}
+
+.picker {
+  position: absolute;
+  color: #fff;
+}
+
+.travelHead .Head_title {
+  top: 50%;
+  width:50%;
+  margin-left:40%;
+}
+
+.travelHead .Head_date {
+  bottom: 2%;
+  left: 2%;
+}
+
+.travelHead .Head_place {
+  top: 2%;
+  left: 2%;
+}
+
+.travelHead image {
+  width: 100%;
+  height: 100%;
+}
+
+.paragraph {
+  /*position: absolute;*/
+  width: 100%;
+  overflow: auto;
+  background:ghostwhite;
+}
+
+.upload_btn{
+  background:#dfdfdf;
+  display: inline-block;
+  width:100px;
+  height:100px;
+}
+
+.paragraph span{
+  color:#91A0B2;
+}
+
+.paragraphText {
+  font-size:14px;
+  margin: 10px 10px 10px 10%;
+}
+
+.paragraphImage {
+  width: 100%;
+}
+
+.paragraphImage image {
+  width: 100%;
+  height:220px;
+}
+
+.addContent {
+  width: 50%;
+  float: left;
+  line-height: 40px;
+  text-align: center;
+  height: 40px;
+  border-top: 1px solid #dfdfdf;
+  border-bottom: 1px solid #dfdfdf;
+  background:ghostwhite;
+  color:slategrey;
+}
+
+.icon-chuangjian1 {
+  font-size: 24px;
+  color: #dfdfdf;
+}
+
+.paragraphBox {
+  overflow: auto;
+  margin-top: 260px;
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+.content_text {
+  z-index: 99999;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 5%;
+  width: 90%;
+  border: 1px solid #dfdfdf;
+  height: 230px;
+  background: #fff;
+  opacity: 0;
+}
+
+.content_text button {
+  width: 25%;
+  margin-left: 15%;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+}
+
+.content_text p {
+  width: 100%;
+  display: inline-block;
+  margin: 10px 0 8px 0;
+  text-align: center;
+}
+
+.content_text textarea {
+  border: 1px solid #dfdfdf;
+  /*margin: 10px;*/
+  margin: 10px auto;
+  padding: 5px;
+  height: 120px;
+  font-size: 14px;
+}
+
+.deletePicBtn {
+  width: 15%;
+  height: 30px;
+  line-height: 30px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.editBtn {
+  background: #91A0B2;
+  color:#fff;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  border: 1px solid #dfdfdf;
+  height: 50px;
+  line-height: 50px;
+}

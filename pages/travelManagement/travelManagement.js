@@ -3,6 +3,13 @@ Page({
   data: {
     travels: []
   },
+  viewTravel:function(guid){
+    var guid = guid.currentTarget.dataset.guid
+    wx.navigateTo({
+      url: '../viewTravel/viewTravel?guid=' + guid + ''
+    })  
+    console.log(guid)
+  },
   onLoad: function () {
     var that = this
     var data = that.data
