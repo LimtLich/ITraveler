@@ -4,10 +4,9 @@
   height: 250px;
   z-index: 9999;
   background:ghostwhite;
-  color:#fff;
 }
 
-.travelHead input {
+.travelHead p {
   position: absolute;
   color: #fff;
 }
@@ -20,6 +19,7 @@
 
 .travelHead .Head_date {
   position:absolute;
+  color: #fff;
   bottom: 2%;
   left: 2%;
 }

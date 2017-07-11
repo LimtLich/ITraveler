@@ -3,8 +3,8 @@
 <view class="shadow" wx:if="{{showMask}}"></view>
 <view class="container">
   <view class="travelHead">
-    <input class="Head_title" value="{{travelInfo.title}}" bindinput="bindTitle" disabled placeholder="TITLE" />
-    <input class="Head_place" value="{{travelInfo.place}}" bindinput="bindPlace" disabled placeholder="LOCATION" />
+    <p class="Head_title">{{travelInfo.title}}</p>
+    <p class="Head_place">{{travelInfo.place}}</p>
     <view class="Head_date">
       {{travelInfo.date}}
     </view>
