@@ -1,10 +1,11 @@
+
 <!--index.wxml-->
 <view class="shadow" wx:if="{{showMask}}"></view>
 <view class="container">
   <view class="travelHead">
     <input class="Head_title" value="{{travelInfo.title}}" bindinput="bindTitle" disabled placeholder="TITLE" />
     <input class="Head_place" value="{{travelInfo.place}}" bindinput="bindPlace" disabled placeholder="LOCATION" />
-    <view class="picker">
+    <view class="Head_date">
       {{travelInfo.date}}
     </view>
     <image src="{{cover_img}}" mode="aspectFill"></image>
