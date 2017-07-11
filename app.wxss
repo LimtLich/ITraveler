@@ -1,4 +1,5 @@
 /**app.wxss**/
+
 .container {
   display: flex;
   flex-direction: column;
@@ -18,14 +19,8 @@
   opacity: 0.7;
 }
 
-/*CH*/
-/*view {
-  font-family: "幼圆";
-}*/
-
-/*EN*/
 view {
-  font-family: "Century Gothic";
+  font-family: 'Century Gothic', '幼圆';
 }
 
 /*@font-face {
