@@ -1,3 +1,4 @@
+require('../../utils/date-format.js').dateformat()
 Page({
   data: {
     travels: []
@@ -6,6 +7,10 @@ Page({
     var that = this
     var data = that.data
     var sessionID = wx.getStorageSync('sessionID')
+    wx.showLoading({
+      title: 'loading',
+      mask: true
+    })
     wx.setNavigationBarTitle({
       title: 'MY TRAVEL'
     })
@@ -17,9 +22,11 @@ Page({
       },
       success: function (res) {
         var result = res.data
+        result.map(e => e.date = new Date(e.date).Format('yyyy-MM-dd'))
         that.setData({
           travels: result
         })
+        wx.hideLoading()
         console.log(data.travels)
       },
       fail: function (res) {

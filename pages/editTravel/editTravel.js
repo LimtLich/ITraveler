@@ -42,37 +42,35 @@ Page({
     var that = this
     var currenIndex = parseInt(event.currentTarget.dataset.index) + 1
     var currentType = event.currentTarget.dataset.type
+    // regist show addContent box animation
     var animation = wx.createAnimation({
       duration: 300,
       timingFunction: 'ease',
     })
-
-    if (currentType == 'edit') {
-      var editIndex = parseInt(event.currentTarget.dataset.index)
-      that.setData({
-        textContent: that.data.paragraphContent[editIndex].value
-      })
-    }
-
-    that.setData({
-      showMask: true,
-      showTextBox: true,
-      contentIndex: currenIndex,
-      currentType: currentType
-    })
-
     this.animation = animation
-
     this.setData({
       animationData: animation.export()
     })
-
     setTimeout(function () {
       animation.opacity(1).step()
       this.setData({
         animationData: animation.export()
       })
     }.bind(this), 100)
+    //edit mode,update current data
+    if (currentType == 'edit') {
+      var editIndex = parseInt(event.currentTarget.dataset.index)
+      that.setData({
+        textContent: that.data.paragraphContent[editIndex].value
+      })
+    }
+    //show edit box & mark current index
+    that.setData({
+      showMask: true,
+      showTextBox: true,
+      contentIndex: currenIndex,
+      currentType: currentType
+    })
   },
   addPicture: function (event) {
     var that = this
@@ -93,6 +91,7 @@ Page({
               paragraphContent: that.data.paragraphContent
             })
           } else if (currentType == 'add') {
+            //update index
             if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
               that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
                 c.index = c.index + 1
@@ -157,6 +156,7 @@ Page({
     } else {
       console.log('erro:', that.data.currentType)
     }
+    //regist animation
     var animation = wx.createAnimation({
       duration: 300,
       timingFunction: 'ease',
@@ -203,6 +203,7 @@ Page({
             paragraphContent: that.data.paragraphContent,
             textContent: null
           })
+          //update index
           that.data.paragraphContent.filter(e => e.index >= Index).map((c) => {
             c.index = c.index - 1
           })
@@ -321,9 +322,4 @@ Page({
       console.log('data not exit')
     }
   }
-  // onUnload: function () {
-  //   wx.redirectTo({
-  //     url: '../travelManagement/travelManagement'
-  //   })
-  // },
 })

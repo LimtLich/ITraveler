@@ -1,9 +1,8 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="allTravels" wx:for="{{travels}}" wx:key="id">
-    <p>{{item.title}}</p>
-    <p>{{item.place}}</p>
-    <p>{{item.date}}</p>
-    <image src="{{item.cover_img}}"></image>
+  <view class="Travels" wx:for="{{travels}}" wx:key="id">    
+    <image src="{{item.cover_img}}" mode="aspectFill"></image>
+    <p class='Travels_title'>{{item.title}}</p>
+    <p class='Travels_date'>{{item.date}}</p>
   </view>
 </view>
