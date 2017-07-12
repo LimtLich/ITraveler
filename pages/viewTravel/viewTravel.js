@@ -12,7 +12,7 @@ Page({
   gotoEdit: function () {
     var that = this
     wx.navigateTo({
-      url: '../viewTravel/viewTravel?guid=' + that.dara.travelID + ''
+      url: '../editTravel/editTravel?guid=' + that.data.travelID + ''
     })
   },
   onLoad: function (option) {

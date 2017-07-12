@@ -10,6 +10,11 @@ Page({
     })  
     console.log(guid)
   },
+  gotoCreate:function(){
+    wx.navigateTo({
+      url: '../createTravel/createTravel'
+    })  
+  },
   onLoad: function () {
     var that = this
     var data = that.data

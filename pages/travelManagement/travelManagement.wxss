@@ -9,6 +9,18 @@
   /*overflow:hidden;*/
 }
 
+.nofile{
+  margin:30% 10% 0 10%;
+}
+
+.nofile p{
+  display: block;
+}
+
+.nofile button{
+  margin-top:20px;
+}
+
 .Travels image {
   width: 100%;
   height:220px;
