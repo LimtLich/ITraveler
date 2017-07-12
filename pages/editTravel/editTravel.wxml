@@ -10,7 +10,7 @@
   <view class="travelHead">
     <input class="Head_title" value="{{travelInfo.title}}" bindinput="bindTitle" placeholder="TITLE" />
     <input class="Head_place" value="{{travelInfo.place}}" bindinput="bindPlace" placeholder="LOCATION" />
-    <picker class="Head_date" mode="date" start="2014-01-01" end="2020-12-30" bindchange="bindDateChange">
+    <picker class="Head_date" mode="date" start="1960-01-01" end="2300-01-01" bindchange="bindDateChange">
       <view class="picker">
         {{travelInfo.date}}
       </view>

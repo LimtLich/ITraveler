@@ -3,9 +3,6 @@
 .upload_img {
   width: 95%;
   height: 260px;
-  /*border: 2px solid #dfdfdf;
-  border-style: dotted;
-  border-radius: 5px;*/
   margin: 2.5% 2.5% 0 2.5%;
 }
 
@@ -13,7 +10,6 @@
   width: 96%;
   height: 100%;
   margin-left: 2%;
-  /*background:#dfdfdf;*/
 }
 
 .upload_img .upload_btn {
@@ -42,9 +38,34 @@
   font-size: 16px;
 }
 
-@media screen and (max-width:375px) {
+@media screen and (max-width:360px) {
+  .upload_img {
+    margin-top: -5% !important;
+  }
+
+  .form input {
+    height: 25px !important;
+  }
+
+  .form .picker {
+    height: 25px !important;
+    line-height: 25px !important;
+  }
+}
+
+@media screen and (min-width:360px) {
+  .upload_img {
+    margin-top: -2% !important;
+  }
+
+}
+
+@media screen and (min-width:400px) {
   .form {
-    top: 45% !important;
+    top: 40% !important;
+  }
+  .upload_img {
+    margin-top: 2.5% !important;
   }
 }
 
@@ -57,16 +78,19 @@
 
 .form input {
   width: 100%;
+  height: 40px;
   border: 1px solid #dfdfdf;
   border-style: dotted;
   display: inline-block;
-  margin-top: 5%;
+  margin-top: 3%;
 }
 
 .form .picker {
+  height: 40px;
+  line-height: 40px;
   border: 1px solid #dfdfdf;
   border-style: dotted;
-  margin: 5% 0 0 0;
+  margin: 3% 0 0 0;
 }
 
 .form view {
