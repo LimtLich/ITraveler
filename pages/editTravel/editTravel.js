@@ -8,7 +8,6 @@ Page({
     travelID: null,
     animationData: {},
     travelInfo: {},
-    paragraphContent: [],
     contentIndex: 0,
     textContent: null,
     currentType: null,
@@ -62,7 +61,7 @@ Page({
     if (currentType == 'edit') {
       var editIndex = parseInt(event.currentTarget.dataset.index)
       that.setData({
-        textContent: that.data.paragraphContent[editIndex].value
+        textContent: that.data.travelInfo.travel_details[editIndex].value
       })
     }
     //show edit box & mark current index
@@ -98,22 +97,24 @@ Page({
               var resData = JSON.parse(res.data)
               wx.hideLoading()
               if (currentType == 'edit') {
-                that.data.paragraphContent[editIndex].value = resData.id
+                that.data.travelInfo.travel_details[editIndex].value = resData.id
+                that.data.travelInfo.travel_details[editIndex].imgPath = tempFilePaths[0]
                 that.setData({
-                  paragraphContent: that.data.paragraphContent
+                  travelInfo: that.data.travelInfo
                 })
               } else if (currentType == 'add') {
                 //update index
-                if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
-                  that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
+                if (that.data.travelInfo.travel_details.filter(e => e.index === that.data.contentIndex).length > 0) {
+                  that.data.travelInfo.travel_details.filter(e => e.index >= that.data.contentIndex).map((c) => {
                     c.index = c.index + 1
                   })
                 }
-                that.data.paragraphContent.push({ travel_guid: that.data.travelID, index: that.data.contentIndex, key: 'image', value: resData.id })
+                that.data.travelInfo.travel_details.push({ travel_guid: that.data.travelID, index: that.data.contentIndex, key: 'image', value: resData.id })
+                that.data.travelInfo.travel_details.sort((a, b) => {
+                  return a.index - b.index
+                })
                 that.setData({
-                  paragraphContent: that.data.paragraphContent.sort((a, b) => {
-                    return a.index - b.index
-                  })
+                  travelInfo: that.data.travelInfo
                 })
               } else {
                 console.log('erro:', that.data.currentType)
@@ -134,34 +135,35 @@ Page({
     if (that.data.currentType == 'add') {
       if (that.data.textContent.trim()) {
         console.log('currentIndex:', that.data.contentIndex)
-        if (that.data.paragraphContent.filter(e => e.index === that.data.contentIndex).length > 0) {
-          that.data.paragraphContent.filter(e => e.index >= that.data.contentIndex).map((c) => {
+        if (that.data.travelInfo.travel_details.filter(e => e.index === that.data.contentIndex).length > 0) {
+          that.data.travelInfo.travel_details.filter(e => e.index >= that.data.contentIndex).map((c) => {
             c.index = c.index + 1
           })
         }
-        that.data.paragraphContent.push({ travel_guid: that.data.travelID, index: that.data.contentIndex, key: 'text', value: that.data.textContent })
+        that.data.travelInfo.travel_details.push({ travel_guid: that.data.travelID, index: that.data.contentIndex, key: 'text', value: that.data.textContent })
+        that.data.travelInfo.travel_details.sort((a, b) => {
+          return a.index - b.index
+        })
         that.setData({
-          paragraphContent: that.data.paragraphContent.sort((a, b) => {
-            return a.index - b.index
-          }),
+          travelInfo: that.data.travelInfo,
           textContent: null
         })
       }
     } else if (that.data.currentType == 'edit') {
       if (that.data.textContent.trim()) {
         console.log(that.data.textContent)
-        that.data.paragraphContent[editIndex].value = that.data.textContent
+        that.data.travelInfo.travel_details[editIndex].value = that.data.textContent
         that.setData({
-          paragraphContent: that.data.paragraphContent,
+          travelInfo: that.data.travelInfo,
           textContent: null
         })
       } else {
-        that.data.paragraphContent.splice(editIndex, 1)
+        that.data.travelInfo.travel_details.splice(editIndex, 1)
         that.setData({
-          paragraphContent: that.data.paragraphContent,
+          travelInfo: that.data.travelInfo,
           textContent: null
         })
-        that.data.paragraphContent.filter(e => e.index >= editIndex).map((c) => {
+        that.data.travelInfo.travel_details.filter(e => e.index >= editIndex).map((c) => {
           c.index = c.index - 1
         })
         console.log('delete')
@@ -211,13 +213,13 @@ Page({
       success: function (res) {
         if (res.confirm) {
           var Index = parseInt(event.currentTarget.dataset.index)
-          that.data.paragraphContent.splice(Index, 1)
+          that.data.travelInfo.travel_details.splice(Index, 1)
           that.setData({
-            paragraphContent: that.data.paragraphContent,
+            travelInfo: that.data.travelInfo,
             textContent: null
           })
           //update index
-          that.data.paragraphContent.filter(e => e.index >= Index).map((c) => {
+          that.data.travelInfo.travel_details.filter(e => e.index >= Index).map((c) => {
             c.index = c.index - 1
           })
           console.log('用户点击确定')
@@ -230,7 +232,7 @@ Page({
   submitForm: function () {
     var that = this
     var sessionID = wx.getStorageSync('sessionID')
-    console.log(that.data.paragraphContent)
+    console.log(that.data.travelInfo.travel_details)
     if (sessionID) {
       wx.showModal({
         title: 'Message',
@@ -248,7 +250,6 @@ Page({
               data: {
                 travelID: that.data.travelID,
                 travelInfo: that.data.travelInfo,
-                paragraphContent: that.data.paragraphContent
               },
               header: {
                 'content-type': 'application/json',
@@ -296,10 +297,10 @@ Page({
     var data = that.data
     wx.showLoading({
       title: 'loading',
-      mask: true
+      mask: false
     })
     wx.setNavigationBarTitle({
-      title: 'EDIT'
+      title: 'Travel'
     })
     if (option.guid) {
       that.setData({
@@ -314,17 +315,59 @@ Page({
           'content-type': 'application/json'
         },
         success: function (res) {
+          var index = 0
+
           var travel = res.data
-          var travelDetails = travel.travel_details
-          travel.date = new Date(travel.date).Format('yyyy-MM-dd')
-          console.log('dateAfter:', travel.date)
-          that.setData({
-            cover_img: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + travel.cover_img,
-            travelInfo: travel,
-            paragraphContent: travelDetails
-          })
-          wx.hideLoading()
-          console.log('data-travelInfo:', travel)
+
+          var travelStorage = wx.getStorageSync(travel.guid)
+
+          if (travelStorage) {
+            console.log('has Storage')
+            that.setData({
+              travelInfo: travelStorage
+            })
+            wx.hideLoading()
+          } else {
+            console.log('no Storage')
+            wx.downloadFile({
+              url: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + travel.cover_img,
+              success: function (res) {
+                travel.date = new Date(travel.date).Format('yyyy-MM-dd')
+                travel.imgPath = res.tempFilePath
+                var DetailImage = travel.travel_details.filter(e => e.key == 'image')
+                if (DetailImage.length > 0) {
+                  console.log('have Imgdetail')
+                  DetailImage.map((c) => {
+                    index++;
+                    wx.downloadFile({
+                      url: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + c.value,
+                      success: function (res) {
+                        c.imgPath = res.tempFilePath
+                        if (index == DetailImage.length) {
+                          console.log('index:', index)
+                          that.setData({
+                            travelInfo: travel
+                          })
+                          wx.setStorageSync(travel.guid, travel)
+                          wx.hideLoading()
+                        }
+                      },
+                      fail: function (res) {
+                        console.log('failed:', res)
+                      }
+                    })
+                  })
+                } else {
+                  console.log('no Imgdetail')
+                  that.setData({
+                    travelInfo: travel
+                  })
+                  wx.setStorageSync(travel.guid, travel)
+                  wx.hideLoading()
+                }
+              }
+            })
+          }
         },
         fail: function (res) {
           wx.showModal({

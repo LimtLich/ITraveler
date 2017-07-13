@@ -15,18 +15,18 @@
         {{travelInfo.date}}
       </view>
     </picker>
-    <image src="{{cover_img}}" mode="aspectFill"></image>
+    <image src="{{travelInfo.imgPath}}" mode="aspectFill"></image>
   </view>
   <view class="paragraph_default">
     <view bindtap="addContent" data-type="add" data-index="-1" class="addContent"><span class="iconfont icon-writing_line"></span>text</view>
     <view bindtap="addPicture" data-type="add" data-index="-1" class="addContent"><span class="iconfont icon-icon17"></span>image</view>
   </view>
   <view class="paragraphBox">
-    <view class="paragraph" wx:for="{{paragraphContent}}" wx:key="id">
+    <view class="paragraph" wx:for="{{travelInfo.travel_details}}" wx:key="id">
       <view>
         <view bindtap="addContent" data-type="edit" data-index="{{index}}" class="paragraphText" wx:if="{{item.key=='text'}}">{{item.value}}</view>
         <view bindtap="addPicture" data-type="edit" data-index="{{index}}" class="paragraphImage" wx:if="{{item.key=='image'}}">       
-          <image src="https://www.mingomin.com/service/public/upload/getAttachment?id={{item.value}}" mode="aspectFit"></image>
+          <image src="{{item.imgPath}}" mode="aspectFit"></image>
         </view>
         <button bindtap="deletePicture" data-index="{{index}}" class="deletePicBtn" type="warn" wx:if="{{item.key=='image'}}"> <span style="color:#fff" class="iconfont icon-lajitong-copy"></span> </button>
       </view>

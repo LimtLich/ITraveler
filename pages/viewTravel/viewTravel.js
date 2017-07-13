@@ -4,10 +4,8 @@ require('../../utils/date-format.js').dateformat()
 var app = getApp()
 Page({
   data: {
-    cover_img: null,
     travelID: null,
-    travelInfo: {},
-    paragraphContent: [],
+    travelInfo: {}
   },
   gotoEdit: function () {
     var that = this
@@ -20,7 +18,7 @@ Page({
     var data = that.data
     wx.showLoading({
       title: 'loading',
-      mask: true
+      mask: false
     })
     wx.setNavigationBarTitle({
       title: 'Travel'
@@ -38,17 +36,59 @@ Page({
           'content-type': 'application/json'
         },
         success: function (res) {
+          var index = 0
+
           var travel = res.data
-          var travelDetails = travel.travel_details
-          travel.date = new Date(travel.date).Format('yyyy-MM-dd')
-          console.log('dateAfter:', travel.date)
-          that.setData({
-            cover_img: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + travel.cover_img,
-            travelInfo: travel,
-            paragraphContent: travelDetails
-          })
-          wx.hideLoading()
-          console.log('data-travelInfo:', travel)
+
+          var travelStorage = wx.getStorageSync(travel.guid)
+
+          if (travelStorage) {
+            console.log('has Storage')
+            that.setData({
+              travelInfo: travelStorage
+            })
+            wx.hideLoading()
+          } else {
+            console.log('no Storage')
+            wx.downloadFile({
+              url: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + travel.cover_img,
+              success: function (res) {
+                travel.date = new Date(travel.date).Format('yyyy-MM-dd')
+                travel.imgPath = res.tempFilePath
+                var DetailImage = travel.travel_details.filter(e => e.key == 'image')
+                if (DetailImage.length > 0) {
+                  console.log('have Imgdetail')
+                  DetailImage.map((c) => {
+                    index++;
+                    wx.downloadFile({
+                      url: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + c.value,
+                      success: function (res) {
+                        c.imgPath = res.tempFilePath
+                        if (index == DetailImage.length) {
+                          console.log('index:', index)
+                          that.setData({
+                            travelInfo: travel
+                          })
+                          wx.setStorageSync(travel.guid, travel)
+                          wx.hideLoading()
+                        }
+                      },
+                      fail: function (res) {
+                        console.log('failed:', res)
+                      }
+                    })
+                  })
+                } else {
+                  console.log('no Imgdetail')
+                  that.setData({
+                    travelInfo: travel
+                  })
+                  wx.setStorageSync(travel.guid, travel)
+                  wx.hideLoading()
+                }
+              }
+            })
+          }
         },
         fail: function (res) {
           wx.showModal({

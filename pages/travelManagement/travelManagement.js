@@ -1,19 +1,19 @@
 require('../../utils/date-format.js').dateformat()
 Page({
   data: {
-    travels: []
+    travels: [null]
   },
-  viewTravel:function(guid){
+  viewTravel: function (guid) {
     var guid = guid.currentTarget.dataset.guid
     wx.navigateTo({
       url: '../viewTravel/viewTravel?guid=' + guid + ''
-    })  
+    })
     console.log(guid)
   },
-  gotoCreate:function(){
+  gotoCreate: function () {
     wx.navigateTo({
       url: '../createTravel/createTravel'
-    })  
+    })
   },
   onLoad: function () {
     var that = this
@@ -21,7 +21,7 @@ Page({
     var sessionID = wx.getStorageSync('sessionID')
     wx.showLoading({
       title: 'loading',
-      mask: true
+      mask: false
     })
     wx.setNavigationBarTitle({
       title: 'MY TRAVEL'
@@ -34,12 +34,37 @@ Page({
       },
       success: function (res) {
         var result = res.data
-        result.map(e => e.date = new Date(e.date).Format('yyyy-MM-dd'))
-        that.setData({
-          travels: result
-        })
-        wx.hideLoading()
-        console.log(data.travels)
+        var index = 0
+        var travelList = wx.getStorageSync('travelList')
+        // result.map(e => e.date = new Date(e.date).Format('yyyy-MM-dd'))
+        if (travelList) {
+          that.setData({
+            travels: travelList
+          })
+          wx.hideLoading()
+        } else {
+          result.map((e) => {
+            index++;
+            e.date = new Date(e.date).Format('yyyy-MM-dd')
+            wx.downloadFile({
+              url: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + e.cover_img, //仅为示例，并非真实的资源
+              success: function (res) {
+                e.imgPath = res.tempFilePath
+                if (index == result.length) {
+                  console.log('currentResult:', result)
+                  that.setData({
+                    travels: result
+                  })
+                  wx.setStorageSync('travelList', result)
+                  wx.hideLoading()
+                }
+              },
+              fail: function (res) {
+                console.log('failed:', res)
+              }
+            })
+          })
+        }
       },
       fail: function (res) {
         wx.showModal({
