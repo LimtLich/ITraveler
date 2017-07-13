@@ -50,6 +50,7 @@ Page({
             wx.hideLoading()
           } else {
             console.log('no Storage')
+            console.log('travel:',travel)
             wx.downloadFile({
               url: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + travel.cover_img,
               success: function (res) {

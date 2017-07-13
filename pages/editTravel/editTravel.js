@@ -109,7 +109,7 @@ Page({
                     c.index = c.index + 1
                   })
                 }
-                that.data.travelInfo.travel_details.push({ travel_guid: that.data.travelID, index: that.data.contentIndex, key: 'image', value: resData.id })
+                that.data.travelInfo.travel_details.push({ travel_guid: that.data.travelID, index: that.data.contentIndex, key: 'image', value: resData.id, imgPath: tempFilePaths[0] })
                 that.data.travelInfo.travel_details.sort((a, b) => {
                   return a.index - b.index
                 })
@@ -258,6 +258,7 @@ Page({
               success: function (res) {
                 var result = res.data
                 console.log('request result:', result)
+                wx.setStorageSync(that.data.travelID, that.data.travelInfo)
                 wx.hideLoading()
                 wx.redirectTo({
                   url: '../travelManagement/travelManagement'

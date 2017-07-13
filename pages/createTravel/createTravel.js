@@ -61,7 +61,7 @@ Page({
       if (that.valid()) {
         wx.showLoading({
           title: 'loading',
-          mask: true
+          mask: false
         })
         wx.uploadFile({
           url: 'https://www.mingomin.com/service/public/upload/file', //服务地址
@@ -83,7 +83,15 @@ Page({
                 'Cookie': 'sessionID=' + sessionID
               },
               success: function (res) {
-                console.log('createResult:',res.data)
+                var travelList = wx.getStorageSync('travelList')
+                travelList.push({
+                  guid: res.data,
+                  title: data.title,
+                  place: data.place,
+                  date: data.date,
+                  cover_img: resData.id
+                })
+                wx.setStorageSync('travelList', travelList)
                 wx.hideLoading()
                 wx.redirectTo({
                   url: '../editTravel/editTravel?guid=' + res.data + ''

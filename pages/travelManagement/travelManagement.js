@@ -38,6 +38,7 @@ Page({
         var travelList = wx.getStorageSync('travelList')
         // result.map(e => e.date = new Date(e.date).Format('yyyy-MM-dd'))
         if (travelList) {
+          console.log('travelList:',travelList)
           that.setData({
             travels: travelList
           })
