@@ -85,42 +85,32 @@ Page({
       success: function (res) {
         var tempFilePaths = res.tempFilePaths
         if (tempFilePaths) {
-          wx.showLoading({
-            title: 'loading',
-            mask: true
-          })
-          wx.uploadFile({
-            url: 'https://www.mingomin.com/service/public/upload/file', //服务地址
-            filePath: tempFilePaths[0],
-            name: 'file',
-            success: function (res) {
-              var resData = JSON.parse(res.data)
-              wx.hideLoading()
-              if (currentType == 'edit') {
-                that.data.travelInfo.travel_details[editIndex].value = resData.id
-                that.data.travelInfo.travel_details[editIndex].imgPath = tempFilePaths[0]
-                that.setData({
-                  travelInfo: that.data.travelInfo
-                })
-              } else if (currentType == 'add') {
-                //update index
-                if (that.data.travelInfo.travel_details.filter(e => e.index === that.data.contentIndex).length > 0) {
-                  that.data.travelInfo.travel_details.filter(e => e.index >= that.data.contentIndex).map((c) => {
-                    c.index = c.index + 1
-                  })
-                }
-                that.data.travelInfo.travel_details.push({ travel_guid: that.data.travelID, index: that.data.contentIndex, key: 'image', value: resData.id, imgPath: tempFilePaths[0] })
-                that.data.travelInfo.travel_details.sort((a, b) => {
-                  return a.index - b.index
-                })
-                that.setData({
-                  travelInfo: that.data.travelInfo
-                })
-              } else {
-                console.log('erro:', that.data.currentType)
-              }
+          if (currentType == 'add') {
+            //update index
+            if (that.data.travelInfo.travel_details.filter(e => e.index === that.data.contentIndex).length > 0) {
+              that.data.travelInfo.travel_details.filter(e => e.index >= that.data.contentIndex).map((c) => {
+                c.index = c.index + 1
+              })
             }
-          })
+            that.data.travelInfo.travel_details.push({ travel_guid: that.data.travelID, index: that.data.contentIndex, key: 'image', imgPath: tempFilePaths[0] })
+            that.data.travelInfo.travel_details.sort((a, b) => {
+              return a.index - b.index
+            })
+            that.setData({
+              travelInfo: that.data.travelInfo
+            })
+          } else if (currentType == 'edit') {
+            if (that.data.travelInfo.travel_details[editIndex].value) {
+              that.data.travelInfo.travel_details[editIndex].value = undefined
+            }
+            that.data.travelInfo.travel_details[editIndex].imgPath = tempFilePaths[0]
+            that.setData({
+              travelInfo: that.data.travelInfo
+            })
+            console.log('editImageResult:', that.data.travelInfo)
+          } else {
+            console.log('erro:', that.data.currentType)
+          }
         }
       }
     })
@@ -163,7 +153,7 @@ Page({
           travelInfo: that.data.travelInfo,
           textContent: null
         })
-        that.data.travelInfo.travel_details.filter(e => e.index >= editIndex).map((c) => {
+        that.data.travelInfo.travel_details.filter(e => e.index > editIndex).map((c) => {
           c.index = c.index - 1
         })
         console.log('delete')
@@ -219,7 +209,7 @@ Page({
             textContent: null
           })
           //update index
-          that.data.travelInfo.travel_details.filter(e => e.index >= Index).map((c) => {
+          that.data.travelInfo.travel_details.filter(e => e.index > Index).map((c) => {
             c.index = c.index - 1
           })
           console.log('用户点击确定')
@@ -229,56 +219,83 @@ Page({
       }
     })
   },
-  submitForm: function () {
+  checkSubmitInfo: function () {
+    console.log('in checking')
     var that = this
-    var sessionID = wx.getStorageSync('sessionID')
-    console.log(that.data.travelInfo.travel_details)
-    if (sessionID) {
-      wx.showModal({
-        title: 'Message',
-        content: 'Sure to save this travel?',
-        confirmText: 'Yes',
-        cancelText: 'No',
-        success: function (res) {
-          if (res.confirm) {
-            wx.showLoading({
-              title: 'loading',
-              mask: true
+    var index = 0
+    wx.showModal({
+      title: 'Message',
+      content: 'Sure to save this travel?',
+      confirmText: 'Yes',
+      cancelText: 'No',
+      success: function (res) {
+        if (res.confirm) {
+          wx.showLoading({
+            title: 'loading',
+            mask: false
+          })
+          var updateDetailImage = that.data.travelInfo.travel_details.filter(a => a.key == 'image' && !a.value)
+          if (updateDetailImage.length > 0) {
+            console.log('has update image')
+            updateDetailImage.map((e) => {              
+              wx.uploadFile({
+                url: 'https://www.mingomin.com/service/public/upload/file', //服务地址
+                filePath: e.imgPath,
+                name: 'file',
+                success: function (res) {
+                  index = index + 1
+                  console.log('uploadResult:', res.data)
+                  var resData = JSON.parse(res.data)
+                  e.value = resData.id
+                  console.log('index:', index)
+                  if (index == updateDetailImage.length) {
+                    console.log('finish update')
+                    that.setData({
+                      travelInfo: that.data.travelInfo
+                    })
+                    that.submitForm()
+                  }
+                }
+              })
             })
-            wx.request({
-              url: 'https://www.mingomin.com/service/public/server/editTravel', //服务地址
-              data: {
-                travelID: that.data.travelID,
-                travelInfo: that.data.travelInfo,
-              },
-              header: {
-                'content-type': 'application/json',
-                'Cookie': 'sessionID=' + sessionID
-              },
-              success: function (res) {
-                var result = res.data
-                console.log('request result:', result)
-                wx.setStorageSync(that.data.travelID, that.data.travelInfo)
-                wx.hideLoading()
-                wx.redirectTo({
-                  url: '../travelManagement/travelManagement'
-                })
-              },
-              fail: function (res) {
-                wx.showModal({
-                  title: 'erro',
-                  showCancel: false,
-                  content: res,
-                  success: function (res) { }
-                })
-              }
-            })
-            console.log('用户点击确定')
-          } else if (res.cancel) {
-            console.log('用户点击取消')
+          } else {
+            console.log('no update image')
+            that.submitForm()
           }
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  submitForm: function () {
+    console.log('in submit')
+    var that = this
+    var index = 0
+    var sessionID = wx.getStorageSync('sessionID')
+    console.log('checkIndex:', that.data.travelInfo)
+    if (sessionID) {
+      wx.request({
+        url: 'https://www.mingomin.com/service/public/server/editTravel', //服务地址
+        data: {
+          travelID: that.data.travelID,
+          travelInfo: that.data.travelInfo,
+        },
+        header: {
+          'content-type': 'application/json',
+          'Cookie': 'sessionID=' + sessionID
+        },
+        success: function (res) {
+          var result = res.data
+          console.log('request result:', result)
+          wx.setStorageSync(that.data.travelID, that.data.travelInfo)
+          // wx.hideLoading()
+          // wx.redirectTo({
+          //   url: '../travelManagement/travelManagement'
+          // })
         }
       })
+      console.log('用户点击确定')
     } else {
       wx.showModal({
         title: 'Error',
@@ -286,6 +303,7 @@ Page({
         showCancel: false,
         content: 'access timeout!',
         success: function (res) {
+          // wx.hideLoading()
           wx.redirectTo({
             url: '../index/index'
           })

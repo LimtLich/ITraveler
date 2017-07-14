@@ -50,7 +50,7 @@ Page({
             wx.hideLoading()
           } else {
             console.log('no Storage')
-            console.log('travel:',travel)
+            console.log('travel:', travel)
             wx.downloadFile({
               url: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + travel.cover_img,
               success: function (res) {
@@ -59,11 +59,11 @@ Page({
                 var DetailImage = travel.travel_details.filter(e => e.key == 'image')
                 if (DetailImage.length > 0) {
                   console.log('have Imgdetail')
-                  DetailImage.map((c) => {
-                    index++;
+                  DetailImage.map((c) => {                
                     wx.downloadFile({
                       url: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + c.value,
                       success: function (res) {
+                        index = index + 1;
                         c.imgPath = res.tempFilePath
                         if (index == DetailImage.length) {
                           console.log('index:', index)

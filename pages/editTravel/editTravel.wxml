@@ -34,7 +34,7 @@
       <view bindtap="addPicture" data-type="add" data-index="{{index}}" class="addContent"><span class="iconfont icon-icon17"></span> image</view>
     </view>
   </view>
-  <view bindtap="submitForm" class="submitBtn">
+  <view bindtap="checkSubmitInfo" class="submitBtn">
     COMMIT
   </view>
 </view>
