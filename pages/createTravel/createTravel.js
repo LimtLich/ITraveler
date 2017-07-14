@@ -34,7 +34,6 @@ Page({
         that.setData({
           cover_img: tempFilePaths,
         })
-        console.log(tempFilePaths)
       }
     })
   },

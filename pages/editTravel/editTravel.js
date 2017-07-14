@@ -107,7 +107,6 @@ Page({
             that.setData({
               travelInfo: that.data.travelInfo
             })
-            console.log('editImageResult:', that.data.travelInfo)
           } else {
             console.log('erro:', that.data.currentType)
           }
@@ -124,7 +123,6 @@ Page({
     })
     if (that.data.currentType == 'add') {
       if (that.data.textContent.trim()) {
-        console.log('currentIndex:', that.data.contentIndex)
         if (that.data.travelInfo.travel_details.filter(e => e.index === that.data.contentIndex).length > 0) {
           that.data.travelInfo.travel_details.filter(e => e.index >= that.data.contentIndex).map((c) => {
             c.index = c.index + 1
@@ -141,7 +139,6 @@ Page({
       }
     } else if (that.data.currentType == 'edit') {
       if (that.data.textContent.trim()) {
-        console.log(that.data.textContent)
         that.data.travelInfo.travel_details[editIndex].value = that.data.textContent
         that.setData({
           travelInfo: that.data.travelInfo,
@@ -156,7 +153,6 @@ Page({
         that.data.travelInfo.travel_details.filter(e => e.index > editIndex).map((c) => {
           c.index = c.index - 1
         })
-        console.log('delete')
       }
     } else {
       console.log('erro:', that.data.currentType)
@@ -237,14 +233,13 @@ Page({
           var updateDetailImage = that.data.travelInfo.travel_details.filter(a => a.key == 'image' && !a.value)
           if (updateDetailImage.length > 0) {
             console.log('has update image')
-            updateDetailImage.map((e) => {              
+            updateDetailImage.map((e) => {
               wx.uploadFile({
                 url: 'https://www.mingomin.com/service/public/upload/file', //服务地址
                 filePath: e.imgPath,
                 name: 'file',
                 success: function (res) {
                   index = index + 1
-                  console.log('uploadResult:', res.data)
                   var resData = JSON.parse(res.data)
                   e.value = resData.id
                   console.log('index:', index)
@@ -269,11 +264,9 @@ Page({
     })
   },
   submitForm: function () {
-    console.log('in submit')
     var that = this
     var index = 0
     var sessionID = wx.getStorageSync('sessionID')
-    console.log('checkIndex:', that.data.travelInfo)
     if (sessionID) {
       wx.request({
         url: 'https://www.mingomin.com/service/public/server/editTravel', //服务地址
@@ -287,12 +280,11 @@ Page({
         },
         success: function (res) {
           var result = res.data
-          console.log('request result:', result)
           wx.setStorageSync(that.data.travelID, that.data.travelInfo)
-          // wx.hideLoading()
-          // wx.redirectTo({
-          //   url: '../travelManagement/travelManagement'
-          // })
+          wx.hideLoading()
+          wx.navigateBack({
+            delta: 1
+          })
         }
       })
       console.log('用户点击确定')
@@ -363,7 +355,6 @@ Page({
                       success: function (res) {
                         c.imgPath = res.tempFilePath
                         if (index == DetailImage.length) {
-                          console.log('index:', index)
                           that.setData({
                             travelInfo: travel
                           })

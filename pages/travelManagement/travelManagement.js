@@ -8,7 +8,6 @@ Page({
     wx.navigateTo({
       url: '../viewTravel/viewTravel?guid=' + guid + ''
     })
-    console.log(guid)
   },
   gotoCreate: function () {
     wx.navigateTo({
@@ -52,7 +51,6 @@ Page({
                 index = index + 1;
                 e.imgPath = res.tempFilePath
                 if (index == result.length) {
-                  console.log('currentResult:', result)
                   that.setData({
                     travels: result
                   })
