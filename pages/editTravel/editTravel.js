@@ -283,7 +283,7 @@ Page({
           wx.setStorageSync(that.data.travelID, that.data.travelInfo)
           wx.hideLoading()
           wx.navigateBack({
-            delta: 1
+            delta: 2
           })
         }
       })

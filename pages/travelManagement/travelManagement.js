@@ -1,7 +1,7 @@
 require('../../utils/date-format.js').dateformat()
 Page({
   data: {
-    travels: [null]
+    travels: []
   },
   viewTravel: function (guid) {
     var guid = guid.currentTarget.dataset.guid
@@ -43,26 +43,30 @@ Page({
           })
           wx.hideLoading()
         } else {
-          result.map((e) => {            
-            e.date = new Date(e.date).Format('yyyy-MM-dd')
-            wx.downloadFile({
-              url: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + e.cover_img, //仅为示例，并非真实的资源
-              success: function (res) {
-                index = index + 1;
-                e.imgPath = res.tempFilePath
-                if (index == result.length) {
-                  that.setData({
-                    travels: result
-                  })
-                  wx.setStorageSync('travelList', result)
-                  wx.hideLoading()
+          if (result.length > 0) {
+            result.map((e) => {
+              e.date = new Date(e.date).Format('yyyy-MM-dd')
+              wx.downloadFile({
+                url: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + e.cover_img, //仅为示例，并非真实的资源
+                success: function (res) {
+                  index = index + 1;
+                  e.imgPath = res.tempFilePath
+                  if (index == result.length) {
+                    that.setData({
+                      travels: result
+                    })
+                    wx.setStorageSync('travelList', result)
+                    wx.hideLoading()
+                  }
+                },
+                fail: function (res) {
+                  console.log('failed:', res)
                 }
-              },
-              fail: function (res) {
-                console.log('failed:', res)
-              }
+              })
             })
-          })
+          }else{
+            wx.hideLoading()
+          }
         }
       },
       fail: function (res) {

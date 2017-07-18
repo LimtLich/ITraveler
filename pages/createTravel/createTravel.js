@@ -82,16 +82,29 @@ Page({
                 'Cookie': 'sessionID=' + sessionID
               },
               success: function (res) {
-                var travelList = wx.getStorageSync('travelList')
-                travelList.push({
-                  guid: res.data,
-                  title: data.title,
-                  place: data.place,
-                  date: data.date,
-                  cover_img: resData.id,
-                  img_Path:that.data.cover_img[0]
-                })
-                wx.setStorageSync('travelList', travelList)
+                var travelList = []
+                var travelListStorage = wx.getStorageSync('travelList')
+                if (travelListStorage) {
+                  travelListStorage.push({
+                    guid: res.data,
+                    title: data.title,
+                    place: data.place,
+                    date: data.date,
+                    cover_img: resData.id,
+                    img_Path: that.data.cover_img[0]
+                  })
+                  wx.setStorageSync('travelList', travelListStorage)
+                } else {
+                  travelList.push({
+                    guid: res.data,
+                    title: data.title,
+                    place: data.place,
+                    date: data.date,
+                    cover_img: resData.id,
+                    img_Path: that.data.cover_img[0]
+                  })
+                  wx.setStorageSync('travelList', travelList)
+                }              
                 wx.hideLoading()
                 wx.redirectTo({
                   url: '../editTravel/editTravel?guid=' + res.data + ''
