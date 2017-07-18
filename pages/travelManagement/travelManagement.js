@@ -20,64 +20,78 @@ Page({
     var sessionID = wx.getStorageSync('sessionID')
     wx.showLoading({
       title: 'loading',
-      mask: false
+      mask: true
     })
     wx.setNavigationBarTitle({
       title: 'MY TRAVEL'
     })
-    wx.request({
-      url: 'https://www.mingomin.com/service/public/server/getTravels', //服务地址
-      header: {
-        'content-type': 'application/json',
-        'Cookie': 'sessionID=' + sessionID
-      },
-      success: function (res) {
-        var result = res.data
-        var index = 0
-        var travelList = wx.getStorageSync('travelList')
-        // result.map(e => e.date = new Date(e.date).Format('yyyy-MM-dd'))
-        if (travelList) {
-          console.log('travelList:', travelList)
-          that.setData({
-            travels: travelList
-          })
-          wx.hideLoading()
-        } else {
-          if (result.length > 0) {
-            result.map((e) => {
-              e.date = new Date(e.date).Format('yyyy-MM-dd')
-              wx.downloadFile({
-                url: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + e.cover_img, //仅为示例，并非真实的资源
-                success: function (res) {
-                  index = index + 1;
-                  e.imgPath = res.tempFilePath
-                  if (index == result.length) {
-                    that.setData({
-                      travels: result
-                    })
-                    wx.setStorageSync('travelList', result)
-                    wx.hideLoading()
-                  }
-                },
-                fail: function (res) {
-                  console.log('failed:', res)
-                }
-              })
+    if (sessionID) {
+      wx.request({
+        url: 'https://www.mingomin.com/service/public/server/getTravels', //服务地址
+        header: {
+          'content-type': 'application/json',
+          'Cookie': 'sessionID=' + sessionID
+        },
+        success: function (res) {
+          var result = res.data
+          var index = 0
+          var travelList = wx.getStorageSync('travelList')
+          // result.map(e => e.date = new Date(e.date).Format('yyyy-MM-dd'))
+          if (travelList) {
+            console.log('travelList:', travelList)
+            that.setData({
+              travels: travelList
             })
-          }else{
             wx.hideLoading()
+          } else {
+            if (result.length > 0) {
+              result.map((e) => {
+                e.date = new Date(e.date).Format('yyyy-MM-dd')
+                wx.downloadFile({
+                  url: 'https://www.mingomin.com/service/public/upload/getAttachment?id=' + e.cover_img, //仅为示例，并非真实的资源
+                  success: function (res) {
+                    index = index + 1;
+                    e.imgPath = res.tempFilePath
+                    if (index == result.length) {
+                      that.setData({
+                        travels: result
+                      })
+                      wx.setStorageSync('travelList', result)
+                      wx.hideLoading()
+                    }
+                  },
+                  fail: function (res) {
+                    console.log('failed:', res)
+                  }
+                })
+              })
+            } else {
+              wx.hideLoading()
+            }
           }
+        },
+        fail: function (res) {
+          wx.showModal({
+            title: 'erro',
+            showCancel: false,
+            content: res,
+            success: function (res) { }
+          })
         }
-      },
-      fail: function (res) {
-        wx.showModal({
-          title: 'erro',
-          showCancel: false,
-          content: res,
-          success: function (res) { }
-        })
-      }
-    })
+      })
+    } else {
+      wx.showModal({
+        title: 'Error',
+        confirmText: 'Ok',
+        showCancel: false,
+        content: 'access timeout!',
+        success: function (res) {
+          wx.redirectTo({
+            url: '../index/index'
+          })
+        }
+      })
+    }
   },
   onReady: function () {
     // 页面渲染完成
