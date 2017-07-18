@@ -88,7 +88,8 @@ Page({
                   title: data.title,
                   place: data.place,
                   date: data.date,
-                  cover_img: resData.id
+                  cover_img: resData.id,
+                  img_Path:that.data.cover_img[0]
                 })
                 wx.setStorageSync('travelList', travelList)
                 wx.hideLoading()
