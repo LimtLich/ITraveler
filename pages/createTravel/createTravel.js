@@ -41,13 +41,13 @@ Page({
     var that = this
     var data = that.data
     if (data.title == '') {
-      data.validMsg = 'Please enter a title'
+      data.validMsg = '請輸入標題'
       return false
     } else if (data.place == '') {
-      data.validMsg = 'Please enter the location'
+      data.validMsg = '請選擇地址'
       return false
     } else if (data.cover_img === '/static/images/default.jpg') {
-      data.validMsg = 'Please upload the background image'
+      data.validMsg = '請上傳封面圖片'
       return false
     } else {
       return true
@@ -91,7 +91,7 @@ Page({
                     place: data.place,
                     date: data.date,
                     cover_img: resData.id,
-                    img_Path: that.data.cover_img[0]
+                    imgPath: that.data.cover_img[0]
                   })
                   wx.setStorageSync('travelList', travelListStorage)
                 } else {
@@ -101,7 +101,7 @@ Page({
                     place: data.place,
                     date: data.date,
                     cover_img: resData.id,
-                    img_Path: that.data.cover_img[0]
+                    imgPath: that.data.cover_img[0]
                   })
                   wx.setStorageSync('travelList', travelList)
                 }              

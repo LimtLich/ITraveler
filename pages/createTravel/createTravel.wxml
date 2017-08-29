@@ -6,15 +6,15 @@
   </view>
   <view class="form">
     <view>
-      <span>TITLE:</span>
-      <input value="{{title}}" bindinput="bindTitle" placeholder="Please enter a title" />
+      <span>標題:</span>
+      <input value="{{title}}" bindinput="bindTitle" placeholder="請輸入標題" />
     </view>
     <view>
-      <span>LOCATE:</span>
-      <input value="{{place}}" bindinput="bindPlace" placeholder="Please enter the location" />
+      <span>地點:</span>
+      <input value="{{place}}" bindinput="bindPlace" placeholder="請選擇地點" />
     </view>
     <view>
-      <span>DATE：</span>
+      <span>日期：</span>
       <picker mode="date" value="{{date}}" start="1960-01-01" end="2300-01-01" bindchange="bindDateChange">
         <view class="picker">
           {{date}}
@@ -23,6 +23,6 @@
     </view>
   </view>
   <view class="submit">
-    <button bindtap="submitForm" type="default">COMMIT</button>
+    <button bindtap="submitForm" type="default">創建</button>
   </view>
 </view>
