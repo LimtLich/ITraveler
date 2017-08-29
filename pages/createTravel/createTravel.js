@@ -59,7 +59,7 @@ Page({
     if (sessionID) {
       if (that.valid()) {
         wx.showLoading({
-          title: 'loading',
+          title: '加載中...',
           mask: false
         })
         wx.uploadFile({
@@ -113,8 +113,8 @@ Page({
               fail: function (res) {
                 wx.hideLoading()
                 wx.showModal({
-                  title: 'Message',
-                  confirmText: 'Ok',
+                  title: '提示',
+                  confirmText: '確認',
                   showCancel: false,
                   content: res,
                   success: function (res) { }
@@ -125,10 +125,10 @@ Page({
           fail: function (res) {
             wx.hideLoading()
             wx.showModal({
-              title: 'Message',
+              title: '提示',
               showCancel: false,
               content: res,
-              confirmText: 'Ok',
+              confirmText: '確認',
               success: function (res) {
                 if (res.confirm) {
                   console.log('用户点击确定')
@@ -139,8 +139,8 @@ Page({
         })
       } else {
         wx.showModal({
-          title: 'Message',
-          confirmText: 'Ok',
+          title: '提示',
+          confirmText: '確認',
           showCancel: false,
           content: this.data.validMsg,
           success: function (res) { }
@@ -148,10 +148,10 @@ Page({
       }
     } else {
       wx.showModal({
-        title: 'Error',
+        title: '錯誤',
         confirmText: 'Ok',
         showCancel: false,
-        content: 'access timeout!',
+        content: '請求超時',
         success: function (res) {
           wx.redirectTo({
             url: '../index/index'
@@ -164,7 +164,7 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     var that = this
     wx.setNavigationBarTitle({
-      title: 'CREATE'
+      title: '創建'
     })
     //初始化日期
     var year = new Date().getFullYear()

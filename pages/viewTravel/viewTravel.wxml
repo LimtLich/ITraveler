@@ -19,7 +19,5 @@
       </view>
     </view>
   </view>
-  <view bindtap="gotoEdit" class="editBtn">
-    GO TO EDIT!
-  </view>
+  <view bindtap="gotoEdit" class="editBtn">前往編輯</view>
 </view>

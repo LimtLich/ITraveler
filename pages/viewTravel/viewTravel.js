@@ -17,11 +17,11 @@ Page({
     var that = this
     var data = that.data
     wx.showLoading({
-      title: 'loading',
+      title: '加載中...',
       mask: false
     })
     wx.setNavigationBarTitle({
-      title: 'Travel'
+      title: '游記詳情'
     })
     if (option.guid) {
       that.setData({
@@ -93,7 +93,7 @@ Page({
         },
         fail: function (res) {
           wx.showModal({
-            title: 'erro',
+            title: '錯誤',
             showCancel: false,
             content: res,
             success: function (res) { }

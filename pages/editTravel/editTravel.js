@@ -194,8 +194,8 @@ Page({
   deletePicture: function (event) {
     var that = this
     wx.showModal({
-      title: 'Message',
-      content: 'Sure to delete this image?',
+      title: '信息',
+      content: '確認刪除該圖片？',
       success: function (res) {
         if (res.confirm) {
           var Index = parseInt(event.currentTarget.dataset.index)
@@ -220,14 +220,14 @@ Page({
     var that = this
     var index = 0
     wx.showModal({
-      title: 'Message',
-      content: 'Sure to save this travel?',
-      confirmText: 'Yes',
-      cancelText: 'No',
+      title: '信息',
+      content: '確認保存該游記?',
+      confirmText: '是',
+      cancelText: '否',
       success: function (res) {
         if (res.confirm) {
           wx.showLoading({
-            title: 'loading',
+            title: '加載中...',
             mask: false
           })
           var updateDetailImage = that.data.travelInfo.travel_details.filter(a => a.key == 'image' && !a.value)
@@ -290,10 +290,10 @@ Page({
       console.log('用户点击确定')
     } else {
       wx.showModal({
-        title: 'Error',
-        confirmText: 'Ok',
+        title: '錯誤',
+        confirmText: '確認',
         showCancel: false,
-        content: 'access timeout!',
+        content: '請求超時',
         success: function (res) {
           // wx.hideLoading()
           wx.redirectTo({
@@ -307,11 +307,11 @@ Page({
     var that = this
     var data = that.data
     wx.showLoading({
-      title: 'loading',
+      title: '加載中...',
       mask: false
     })
     wx.setNavigationBarTitle({
-      title: 'Travel'
+      title: '游記編輯'
     })
     if (option.guid) {
       that.setData({
@@ -381,7 +381,7 @@ Page({
         },
         fail: function (res) {
           wx.showModal({
-            title: 'erro',
+            title: '錯誤',
             showCancel: false,
             content: res,
             success: function (res) { }

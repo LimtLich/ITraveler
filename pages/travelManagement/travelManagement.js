@@ -19,11 +19,11 @@ Page({
     var data = that.data
     var sessionID = wx.getStorageSync('sessionID')
     wx.showLoading({
-      title: 'loading',
+      title: '加載中...',
       mask: true
     })
     wx.setNavigationBarTitle({
-      title: 'MY TRAVEL'
+      title: '我的游記'
     })
     if (sessionID) {
       wx.request({
@@ -72,7 +72,7 @@ Page({
         },
         fail: function (res) {
           wx.showModal({
-            title: 'erro',
+            title: '錯誤',
             showCancel: false,
             content: res,
             success: function (res) { }
@@ -81,10 +81,10 @@ Page({
       })
     } else {
       wx.showModal({
-        title: 'Error',
+        title: '錯誤',
         confirmText: 'Ok',
         showCancel: false,
-        content: 'access timeout!',
+        content: '請求超時!',
         success: function (res) {
           wx.redirectTo({
             url: '../index/index'

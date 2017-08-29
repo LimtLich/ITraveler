@@ -1,9 +1,9 @@
 <!--index.wxml-->
 <view class="container">
   <view wx:if="{{travels.length<=0}}" class="nofile">
-    <p>No file record</p>
-    <p>Create right now!</p>
-    <button bindtap="gotoCreate">CREATE TRAVEL</button>
+    <p>暫無游記</p>
+    <p>立刻創建一篇吧!</p>
+    <button bindtap="gotoCreate">創建游記</button>
   </view>
   <view bindtap="viewTravel" data-guid="{{item.guid}}" class="Travels" wx:for="{{travels}}" wx:key="id">
     <image src="{{item.imgPath}}" mode="aspectFill"></image>
